@@ -1,1 +1,1 @@
-Security and tech projects blogg
+Security and tech projects blog
