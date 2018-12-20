@@ -30,7 +30,7 @@ This next image shows the result's when you open the alert. One really neat thin
 
 ![Mic-Anal2](/images/anal2.png)
 
-I have been dealing with Splunk quite a bit lately, specifically with Olaf Hartong's Threat Hunting App. This next image shows the results that Splunk returned after the attack. What I enjoy about this alert is the amnount of information that comes with it. 
+I have been dealing with Splunk quite a bit lately, specifically with Olaf Hartong's Threat Hunting App. This next image shows the results that Splunk returned after the attack. What I enjoy about this alert is the amount of information that comes with it. 
 
 ![Splunk](/images/splunk.png)
 
