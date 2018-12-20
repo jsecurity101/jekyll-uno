@@ -38,7 +38,7 @@ This next image is from suricata. This was easy to capture, all you have to do i
 
 ![Suricata](/images/suricata.png)
 
-Last but not least! Wireshark. I have been doing alot of Traffic Analysis recently so I thought it would be cool to show this as well. I ran this on the Kali box while I was doing the attack. I use the tag "Kerberos.CNameString" as a column in wireshark to help find credentials transferred in traffic. While using wireshark I have noticed that the Kerberos.CNameString tag comes in when an account was used to try and authenticate, very useful if someone get access to a workstation you can see what account was compromised. If you don't have Kerberos.CNameString as a column, I highly suggest. It comes in use when doing analysis. 
+Last but not least! Wireshark. I have been doing alot of Traffic Analysis recently so I thought it would be cool to show this as well. I ran this on the Kali box while I was doing the attack. I use the tag "Kerberos.CNameString" as a column in wireshark to help find credentials transferred in traffic. While using wireshark I have noticed that the Kerberos.CNameString tag comes in handy when an account was used to try and authenticate, very useful if someone get access to a workstation you can see what account was compromised. If you don't have Kerberos.CNameString as a column, I highly suggest. It comes in use when doing analysis. 
 In this image you will see the accounts that were retrieved:
 
 ![Wireshark](/images/ws.png)
