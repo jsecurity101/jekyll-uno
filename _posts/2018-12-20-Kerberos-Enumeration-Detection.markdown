@@ -17,5 +17,5 @@ On to the fun stuff:
 Inside my AD/DC I created a variety of users with a variety of privileges. I did this so I could understand the alerting/detection systems a better and how to personalize these alerts to better fit my enviroment. 
 
 This first image is from my Kali Linux box after I performed the kerberos enum attack:
-![Kerberos-Enumeration](https://github.com/jsecurity101/jsecurity101.github.io/tree/master/images/kerb-enum.png)
+![Kerberos-Enumeration](/images/kerb-enum.png)
 
