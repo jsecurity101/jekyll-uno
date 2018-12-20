@@ -5,7 +5,7 @@ categories: Detection
 tags: 
 ---
 Background:
---
+---
 Before we begin I want to explain what attack was done and how I performed it. Kerbos Enumeration in simple terms is a way to enumerate or collect user's on a certain domain or workstation. I used Kali Linux and Metasploit to perform this attack. I will not be showing how to perform this attack, as I don't think that is ethical, but I will be showing how I Detected this attack while I perfromed it.
 
 Lab:
@@ -17,5 +17,5 @@ On to the fun stuff:
 Inside my AD/DC I created a variety of users with a variety of privileges. I did this so I could understand the alerting/detection systems a better and how to personalize these alerts to better fit my enviroment. 
 
 This first image is from my Kali Linux box after I performed the kerberos enum attack:
-![Kerb-Enum:](kerb-enum.png)
+(/images/kerb-enum.png)
 
