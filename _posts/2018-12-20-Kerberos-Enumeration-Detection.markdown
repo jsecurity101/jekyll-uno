@@ -22,7 +22,7 @@ This first image is from my Kali Linux box after I performed the kerberos enum a
 
 This shows the result of the actual attack and what users were actually on the DC. (You might enjoy the user theme I have going..) **Note** you will see there is the password for one user in here, this is because I put the password in the wordlist to see if it would return anything for results. 
 
-This next image shoes what Microsoft Advance Threat Analytics came up with. As you will see with the first image, it simply gives you a brief summary of the detection. This was only found as a "Medium" threat. 
+This next image shows what Microsoft Advance Threat Analytics came up with. As you will see with the first image, it simply gives you a brief summary of the detection. This was only found as a "Medium" threat. 
 
 ![Mic-Anal](/images/anal1.png)
 
