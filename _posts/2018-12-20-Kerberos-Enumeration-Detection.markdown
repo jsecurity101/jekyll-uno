@@ -6,11 +6,11 @@ tags:
 ---
 Background:
 ---
-Before we begin I want to explain what attack was done and how I performed it. Kerbos Enumeration in simple terms is a way to enumerate or collect user's on a certain domain or workstation. I used Kali Linux and Metasploit to perform this attack. This attack is different then kerberoasting, this attack is simply using a wordlist to see if those accounts can authenticate on the system. I will not be showing how to perform this attack, as I don't think that is ethical, but I will be showing how I Detected this attack while I perfromed it.
+Before we begin I want to explain what attack was done and how I performed it. Kerberos Enumeration in simple terms is a way to enumerate or collect user's on a certain domain or workstation. I used Kali Linux and Metasploit to perform this attack. This attack is different then kerberoasting, this attack is simply using a wordlist to see if those accounts can authenticate on the system. I will not be showing how to perform this attack, as I don't think that is ethical, but I will be showing how I Detected this attack while I perfromed it.
 
 Lab:
 --
-I have built a couple of personal labs on my own, but in this example (and many in the future) I will be using Chris Long's Detection Lab. Now I won't go into detail what this lab has inside but, if you haven't already built his lab and enjoy detection, then I would. He is constantly making great updates and adding great tools. One of those tools is the Threat Hunting App built inside of Splunk by Olaf Hartong. This is an amazing app, with many great features. If either you read this, thank you both so much for your guys hard work, and making these tools available. The link to their github's are at the bottom of the blog
+I have built a couple of personal labs on my own, but in this example (and many in the future) I will be using Chris Long's Detection Lab. Now I won't go into detail what this lab has inside but, if you haven't already built his lab and enjoy detection, then I would. He is constantly making great updates and adding great tools. One of those tools is the Threat Hunting App built inside of Splunk by Olaf Hartong. This is an amazing app, with many great features. If either you read this, thank you both so much for your guys hard work, and making these tools available. The link to their github's are at the bottom of the blog.
 
 On to the fun stuff:
 --
