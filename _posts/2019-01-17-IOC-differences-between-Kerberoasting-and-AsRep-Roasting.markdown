@@ -26,3 +26,5 @@ The hashes you get between As-Rep and Kerberoasting are different. To crack the 
 ---
 Detection:
 ---
+When doing this attack, I did it with the intent of collecting logs and IOC's. While doing this, I was honestly surprised at what tools turned out to use the same logs to detect these two attacks, but there were 2 tools in particular that detected these attacks differently and they gave some pretty cool logs. Before I show those tools I want to show the tools that gave the same logs. *Because they are the same I will only show one log, not both*
+**Suricata:**
