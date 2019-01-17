@@ -48,4 +48,4 @@ I really enjoy this Threat Hunting App, by Olaf Hartong. This tool has really he
 I will say though the 2 things that caught my eye was the *Credential_Access* and in the Raw Logs: *lsass.exe* which is Local Security Authority Subsystem Service. It verifies users logging in on Windows enviroments. This file is often faked by malware or malicous attacks that are being ran against your system.
 
 **Differences in Detections:**
---
+-
