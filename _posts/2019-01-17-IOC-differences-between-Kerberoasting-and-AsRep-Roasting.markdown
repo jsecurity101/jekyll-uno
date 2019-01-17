@@ -138,6 +138,12 @@ I hope you enjoyed this article, feel free to email me with any questions or con
 Sources:
 --
 Detection Lab - Chris Long - https://github.com/clong/DetectionLab
+
+
 Impacket - Secure Auth - https://www.secureauth.com/labs/open-source-tools/impacket
+
+
 Kerberoast - Tim Medin - https://www.sans.org/cyber-security-summit/archives/file/summit-archive-1493862736.pdf
+
+
 AS-REP - harmj0y - https://www.harmj0y.net/blog/activedirectory/roasting-as-reps/
