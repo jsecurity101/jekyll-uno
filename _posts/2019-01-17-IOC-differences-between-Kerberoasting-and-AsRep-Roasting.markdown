@@ -71,17 +71,17 @@ As you can see with this log, a kerberos service ticket was request. What I want
 
 ***Wireshark:*** *TGS-REQ/TGS-REP*
 
-![tgs-req](/images/kerberoast-wireshark.png)
+![tgs-req1](/images/kerberoast-wireshark.png)
 
 With this Kerberoast attack you will see both AS-REQ/AS-REP before TGS-REQ/TGS-REP, because that is going to be the inital user authentication then you will see the TGS-REQ/TGS-REP because it authorizing the session ticket. That is because TGS stands for Ticket Granting Service and AS stands for Authentication Service. With version 5, Kerberos has 2 components for authorization: Ticket Granting Service (as you see here) and Authentication Service (as you will see here and in As-Rep). So it is authorizing the user through AS-REQ/AS-REP, then sending service ticket that was requested TGS-REQ/TGS-REP. 
 
 ***Wireshark:*** *TGS-REQ*
 
-![tgs-req](/images/kerberoast-request.png)
+![tgs-req2](/images/kerberoast-request.png)
 
 ***Wireshark:*** *TGS-REP*
 
-![tgs-req](/images/kerberoast-response.png)
+![tgs-req3](/images/kerberoast-response.png)
 
 Through these two packets you can see what user was used to authenticate. Now I would like to point out, that I may have only showed one user, you will see more then one user TGS-REQ/TGS-REP under the sname tab. This is gathering other service namees being requested, this is now giving the attacker the tickets for other users, which the attacker can crack the hash for their passwords as well.  
 
@@ -113,7 +113,7 @@ This stuck out to me immediately. Invalid credentials. Sure you get user's who f
 
 ***Wireshark:*** *As-Rep*
 
-![asreq](/images/asrec.png)
+![asrec](/images/asrec.png)
 
 
 ***Wireshark:*** *As-Req*
