@@ -1,8 +1,7 @@
 ---
 title:  "IOC differences between Kerberoasting and As-Rep Roasting"
 date:   2019-01-17
-categories: Detection
-tags: 
+categories: Detection 
 ---
 Background:
 ---
