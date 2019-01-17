@@ -72,13 +72,16 @@ As you can see with this log, a kerberos service ticket was request. What I want
 ![tgs-req](/images/wireshark-kerberoast.png)
 
 
-***Wireshark:*** *Req*
+***Wireshark:*** *TGS-REQ*
 
 ![tgs-req](/images/kerberoast-request.png)
 
-***Wireshark:*** *Rep*
+***Wireshark:*** *TGS-REP*
 
 ![tgs-req](/images/kerberoast-response.png)
+
+
+
 
 **As-Rep Roasting:**
 
