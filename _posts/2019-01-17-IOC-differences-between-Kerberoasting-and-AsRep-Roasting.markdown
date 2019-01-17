@@ -33,7 +33,7 @@ When doing this attack, I did it with the intent of collecting logs and IOC's. W
 
 As you can see with this log you see a *Lateral movement* alert and *Exploit possible GoldenPac Priv Esc.* I was pretty impressed with this log. I wouldn't have thought suricata would have caught anything like this, but they did. So that was interesting.
 
-**Splunk - Threat Hunting App**
+**Splunk - Threat Hunting App:**
 
 ***Credential_Access:***
 
@@ -45,4 +45,7 @@ As you can see with this log you see a *Lateral movement* alert and *Exploit pos
 
 I really enjoy this Threat Hunting App, by Olaf Hartong. This tool has really helped me understand attacks and have given really good logs. With this app, I got the same logs with both attacks. As you can see there is alot of useful information within these logs, even though Im not going to explain these particular logs I do suggest you look into Splunk and this particular app and get familiar with logs like these. 
 
-I will say though the 2 things that caught my eye was the *Credential_Access* and in the Raw Logs: *lsass.exe* which is Local Security Authority Subsystem Service. It verifies users logging in on Windows enviroments. This file is often faked by malware or malicous attacks that are being ran against your system
+I will say though the 2 things that caught my eye was the *Credential_Access* and in the Raw Logs: *lsass.exe* which is Local Security Authority Subsystem Service. It verifies users logging in on Windows enviroments. This file is often faked by malware or malicous attacks that are being ran against your system.
+
+**Differences in Detections:**
+--
