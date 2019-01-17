@@ -53,7 +53,7 @@ Detection (Difference in Logs):
 I am going to show these logs, give a brief explanantion then do a *Difference* section to show and explain the differences in the logs and how you can detect one attack from the other. 
 
 **Kerberoast:**
-
+--
 
 ***Windows Event ID 4769:*** *Kerberos service ticket was requested* 
 
@@ -84,7 +84,7 @@ As you can see with this log, a kerberos service ticket was request. What I want
 
 
 **As-Rep Roasting:**
-
+--
 
 ***Windows Event ID 4769:*** *Kerberos service ticket was requested* 
 
