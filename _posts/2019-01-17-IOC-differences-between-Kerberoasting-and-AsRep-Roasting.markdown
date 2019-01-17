@@ -50,12 +50,67 @@ I will say though the 2 things that caught my eye was the *Credential_Access* an
 
 Detection (Difference in Logs):
 ---
+I am going to show these logs, give a brief explanantion then do a *Difference* section to show and explain the differences in the logs and how you can detect one attack from the other. 
+
 **Kerberoast:**
 
 
 ***Windows Event ID 4769:*** *Kerberos service ticket was requested* 
 
+![4769](/images/windows-4769.png)
+
+
+***Windows Event ID 4768:*** *Kerberos authentication ticket was requested* 
+
+![4768](/images/windows-4768-kerberoast.png)
+
+As you can see with this log, a kerberos service ticket was request. What I want to point out is a service *and* a authentication ticket was request when this attack was performed. 
+
+
+***Wireshark:*** *TGS-REQ/TGS-REP*
+
+![tgs-req](/images/wireshark-kerberoast.png)
+
+
+***Wireshark:*** *Req*
+
+![tgs-req](/images/kerberoast-request.png)
+
+***Wireshark:*** *Rep*
+
+![tgs-req](/images/kerberoast-response.png)
+
 **As-Rep Roasting:**
+
+
+***Windows Event ID 4769:*** *Kerberos service ticket was requested* 
+
+![as-4768](/images/windows-4768.png)
+
+
+***Windows Event ID 4625:*** *An account failed to log on* 
+
+![4625](/images/windows-4625.png)
+
+
+***Wireshark:*** *Invalid creds* ***Red Flag***
+
+![invalid](/images/wireshark-invalid.png)
+
+
+***Wireshark:*** *As-Rep/As-Req*
+
+![asrep-asreq](/images/wireshark-asrep-asrec.png)
+
+
+***Wireshark:*** *As-Rep*
+
+![asreq](/images/asrec.png)
+
+
+***Wireshark:*** *As-Req*
+
+![asrep](/images/asrep.png)
 
 
 **Difference:**
