@@ -42,7 +42,7 @@ As you can see with this log you see a *Lateral movement* alert and *Exploit pos
 
 ***Raw Logs:***
 
-![Raw](/images/rawlogs.png){:height="50%" width="50%"}
+![Raw](/images/rawlogs.png){:height="100%" width="100%"}
 
 I really enjoy this Threat Hunting App, by Olaf Hartong. This tool has really helped me understand attacks and have given really good logs. With this app, I got the same logs with both attacks. As you can see there is alot of useful information within these logs, even though Im not going to explain these particular logs I do suggest you look into Splunk and this particular app and get familiar with logs like these. 
 
