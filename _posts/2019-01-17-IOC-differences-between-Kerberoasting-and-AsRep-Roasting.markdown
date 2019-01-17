@@ -49,10 +49,12 @@ I will say though the 2 things that caught my eye was the *Credential_Access* an
 
 Detection (Difference in Logs):
 ---
-***Kerberoast***
+**Kerberoast:**
 
 
-***As-Rep Roasting***
+***Windows Event ID 4769:*** *Kerberos service ticket was requested* 
+
+**As-Rep Roasting:**
 
 
-***Difference***
+**Difference:**
