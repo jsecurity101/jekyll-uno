@@ -22,10 +22,18 @@ The hashes you get between As-Rep and Kerberoasting are different. To crack the 
 *If you want to disable Kerberos Pre-Auth this is where you want to go*
 ![Pre-Auth](/images/pre-auth-disabled.png)
 
+
 ---
 Detection:
 ---
 When doing this attack, I did it with the intent of collecting logs and IOC's. While doing this, I was honestly surprised at what tools turned out to use the same logs to detect these two attacks, but there were 2 tools in particular that detected these attacks differently and they gave some pretty cool logs. Before I show those tools I want to show the tools that gave the same logs. *Because they are the same I will only show one log, not both*
 
 **Suricata:**
+![Suricata](/images/suricata-golden.png)
+As you can see with this log you see a *Lateral movement* alert and *Exploit possible GoldenPac Priv Esc.* I was pretty impressed with this log. I wouldn't have thought suricata would have caught anything like this, but they did. So that was interesting.
 
+**Splunk - Threat Hunting App**
+![Splunk](/images/splunk-golden.png)
+![Raw](/images/rawlogs.png)
+I really enjoy this Threat Hunting App, by Olaf Hartong. This tool has really helped me understand attacks and have given really good logs. With this app, I got the same logs with both attacks. As you can see there is alot of useful information within these logs, even though Im not going to explain these particular logs I do suggest you look into Splunk and this particular app and get familiar with logs like these. 
+I will say though the 2 things that caught my eye was the *Credential_Access* and in the Raw Logs: *lsass.exe* which is Local Security Authority Subsystem Service. It verifies users logging in on Windows enviroments. This file is often faked by malware or malicous attacks that are being ran against your system
