@@ -29,7 +29,8 @@ When doing this attack, I did it with the intent of collecting logs and IOC's. W
 
 **Suricata:**
 
-![suricata-log](/images/suricata-golden.png)
+![suricata](/images/suricata-golden.png)
+
 
 As you can see with this log you see a *Lateral movement* alert and *Exploit possible GoldenPac Priv Esc.* I was pretty impressed with this log. I wouldn't have thought suricata would have caught anything like this, but they did. So that was interesting.
 
