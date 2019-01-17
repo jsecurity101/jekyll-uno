@@ -3,7 +3,7 @@ title:  "IOC differences between Kerberoasting and As-Rep Roasting"
 date:   2019-01-17
 categories: Detection 
 ---
-Background:
+**Background**:
 ---
 Hello everyone! Thank you for tuning in. I was running a Kerberoast and As-Rep Roasting attack's on my Detection Lab, and noticed some really cool IOC (Indicator of Compromise) differences between the two.
 Before we get started though I want to explain these two attacks. Alot of people categories these attacks as the same, but they are two pretty different attacks. So lets break it down.
@@ -23,7 +23,7 @@ The hashes you get between As-Rep and Kerberoasting are different. To crack the 
 
 *If you want to disable Kerberos Pre-Auth this is where you want to go*
 
-Detection (Same Logs):
+**Detection (Same Logs):**
 ---
 When doing this attack, I did it with the intent of collecting logs and IOC's. While doing this, I was honestly surprised at what tools turned out to use the same logs to detect these two attacks, but there were 2 tools in particular that detected these attacks differently and they gave some pretty cool logs. Before I show those tools I want to show the tools that gave the same logs. *Because they are the same I will only show one log, not both*
 
@@ -48,11 +48,11 @@ I really enjoy this Threat Hunting App, by Olaf Hartong. This tool has really he
 
 I will say though the 2 things that caught my eye was the *Credential_Access* and in the Raw Logs: *lsass.exe* which is Local Security Authority Subsystem Service. It verifies users logging in on Windows enviroments. This file is often faked by malware or malicous attacks that are being ran against your system.
 
-Detection (Difference in Logs):
+**Detection (Difference in Logs):**
 ---
 I am going to show these logs, give a brief explanantion then do a *Difference* section to show and explain the differences in the logs and how you can detect one attack from the other. 
 
-**Kerberoast:**
+Kerberoast:
 --
 
 ***Windows Event ID 4769:*** *Kerberos service ticket was requested* 
@@ -83,7 +83,7 @@ As you can see with this log, a kerberos service ticket was request. What I want
 
 
 
-**As-Rep Roasting:**
+As-Rep Roasting:
 --
 
 ***Windows Event ID 4769:*** *Kerberos service ticket was requested* 
@@ -116,5 +116,5 @@ As you can see with this log, a kerberos service ticket was request. What I want
 ![asrep](/images/asrep.png)
 
 
-**Difference:**
+Difference:
 -
