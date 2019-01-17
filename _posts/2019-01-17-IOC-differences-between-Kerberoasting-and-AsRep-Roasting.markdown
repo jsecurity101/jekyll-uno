@@ -48,9 +48,9 @@ I really enjoy this Threat Hunting App, by Olaf Hartong. This tool has really he
 
 I will say though the 2 things that caught my eye was the 
 
-1.*Credential_Access and Credenital Dumping* which means someone used their credentials to gain access and dumping credentials. Which is obviously a red flag.  
+1. *Credential_Access and Credenital Dumping* which means someone used their credentials to gain access and dumping credentials. Which is obviously a red flag.  
 
-2.Raw Logs: *lsass.exe* which is Local Security Authority Subsystem Service. It verifies users logging in on Windows enviroments. These credentials are stored in protected memory and anyone with Domain Access can actually dump those credentials. This file is often faked by malware or malicous attacks that are being ran against your system. 
+2. Raw Logs: *lsass.exe* which is Local Security Authority Subsystem Service. It verifies users logging in on Windows enviroments. These credentials are stored in protected memory and anyone with Domain Access can actually dump those credentials. This file is often faked by malware or malicous attacks that are being ran against your system. 
 
 
 
