@@ -42,7 +42,7 @@ As you can see with this log you see a *Lateral movement* alert and *Exploit pos
 
 ***Raw Logs:***
 
-![raw](/images/kerberoast-wireshark.PNG)
+![raw](/images/rawlogs.png)
 
 *Image is very hard to see, I apologize*
 
