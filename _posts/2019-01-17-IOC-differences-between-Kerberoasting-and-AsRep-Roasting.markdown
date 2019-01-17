@@ -42,7 +42,9 @@ As you can see with this log you see a *Lateral movement* alert and *Exploit pos
 
 ***Raw Logs:***
 
-![Raw](/images/rawlogs.png){:height="100%" width="100%"}
+![Raw](/images/rawlogs.png)
+
+*Image is very hard to see, I apologize*
 
 I really enjoy this Threat Hunting App, by Olaf Hartong. This tool has really helped me understand attacks and have given really good logs. With this app, I got the same logs with both attacks. As you can see there is alot of useful information within these logs, even though Im not going to explain these particular logs I do suggest you look into Splunk and this particular app and get familiar with logs like these. 
 
@@ -64,13 +66,14 @@ Kerberoast:
 
 ![4768](/images/windows-4768-kerberoast.png)
 
-As you can see with this log, a kerberos service ticket was request. What I want to point out is a service *and* a authentication ticket was request when this attack was performed. 
+As you can see with this log, a kerberos service ticket was request. What I want to point out is a service *and* a authentication ticket was request when this attack was performed. Keep this in mind as we move forward to As-Rep. 
 
 
 ***Wireshark:*** *TGS-REQ/TGS-REP*
 
-![tgs-req](/images/wireshark-kerberoast.png)
+![tgs-req](/images/kerberoast-wireshark.png)
 
+With this Kerberoast attack you will see both AS-REQ/AS-REP before TGS-REQ/TGS-REP, because that is going to be the inital user authentication then you will see the TGS-REQ/TGS-REP because it authorizing the session ticket. That is because TGS stands for Ticket Granting Service and AS stands for Authentication Service. With version 5, Kerberos has 2 components for authorization: Ticket Granting Service (as you see here) and Authentication Service (as you will see here and in As-Rep). So it is authorizing the user through AS-REQ/AS-REP, then sending service ticket that was requested TGS-REQ/TGS-REP. 
 
 ***Wireshark:*** *TGS-REQ*
 
@@ -80,7 +83,7 @@ As you can see with this log, a kerberos service ticket was request. What I want
 
 ![tgs-req](/images/kerberoast-response.png)
 
-
+Through these two packets you can see what user was used to authenticate. Now I would like to point out, that I may have only showed one user, you will see more then one user TGS-REQ/TGS-REP under the sname tab. This is gathering other service namees being requested, this is now giving the attacker the tickets for other users, which the attacker can crack the hash for their passwords as well.  
 
 
 As-Rep Roasting:
@@ -95,11 +98,13 @@ As-Rep Roasting:
 
 ![4625](/images/windows-4625.png)
 
+I would like to point out, as you saw before with the Kerberoasting Windows Event's you saw both 4768 AND 4769. With As-Rep you see 4768 and 4625. This is because, the user does not need to be pre authenticated, so you don't need to know the password. If you have a password to a user, there is no need to do an As-Rep, but just do a Kerberoast. Then you will see the logs like the ones above. 
 
 ***Wireshark:*** *Invalid creds* ***Red Flag***
 
 ![invalid](/images/wireshark-invalid.png)
 
+This stuck out to me immediately. Invalid credentials. Sure you get user's who forget their passwords and this might come up, but followed by As-Rep/As-Req? I think not. That is way too coincidental for me.
 
 ***Wireshark:*** *As-Rep/As-Req*
 
@@ -115,6 +120,17 @@ As-Rep Roasting:
 
 ![asrep](/images/asrep.png)
 
+In AS-REP I showed cname in the packet, where in Kerberoast I showed only sname. The reason for that is this, in Kerberoast you will see both and get a value for both because it is authenitcating through one user:cname and grabbing other service names: sname. I did this to show the difference in the attacks: As-Rep you will only get a value for cname. No sname. Why? It is not requesting a service names and not requesting service authentication. As-Rep is requesting Kerberos Authentication and because the user has "Pre-Authentication" disabled it doesn't need the right password to recieve the ticket. 
 
 Difference:
 -
+1. In Windows Security Logs, Kerberoast will contain Event ID's 4768 and 4769, where in As-Rep contains Event ID's 4768 and 4625. The biggest indicator to me that one was As-Rep vs Kerberoast was the Failed login attempt along with there was no service ticket requested. 
+
+
+2. I have pointed out a couple of differences of the attacks and their IOC's, but this is to summarize it. Kerberoast has AS-REQ/AS-REP AND  TGS-REQ/TGS-REP. As-Rep Roasting ONLY has AS-REQ/AS-REP. That is because Kerberoast is requesting a Service Account Authorization Ticket, where As-Rep is only requesting a Kerberos Authentication Ticket. 
+
+Summary:
+--
+In this article I have shown the main IOC differences between two different attacks. Kerberoasting and As-Rep Roasting. The Detection for Kerberoasting I would admit would be hard, simply because requesting for service tickets does happen alot, **BUT** if you look for service request formated in RC4, then I am sure you will get better luck. 
+
+I hope you enjoyed this article, feel free to email me with any questions or concerns. Add me on my Twitter, Linkedin, Github as well! My links are on the main screen. Thank you for tuning in. 
