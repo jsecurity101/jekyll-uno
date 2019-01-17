@@ -44,7 +44,7 @@ As you can see with this log you see a *Lateral movement* alert and *Exploit pos
 
 ![raw](/images/rawlogs.png)
 
-*Image is very hard to see, I apologize*
+*Image is very hard to see, I apologize, main thing I want to point out in this image is lsass.exe. I explain below.*
 
 I really enjoy this Threat Hunting App, by Olaf Hartong. This tool has really helped me understand attacks and have given really good logs. With this app, I got the same logs with both attacks. As you can see there is alot of useful information within these logs, even though Im not going to explain these particular logs I do suggest you look into Splunk and this particular app and get familiar with logs like these. 
 
