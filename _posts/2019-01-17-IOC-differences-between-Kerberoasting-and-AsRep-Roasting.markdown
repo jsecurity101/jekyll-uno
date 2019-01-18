@@ -15,7 +15,7 @@ The attacker can then crack that hash with hashcat 13100 and a wordlist to find 
 
 **AS-REP Roasting:**
 AS-REP Roasting has the same IDEA of Kerberoasting but is different in the fact that an account needs "Do not require Kerberos preauthentication". For Kerberos v5 you have to manually go in and disable Kerberos pre-auth. The only reason I can think of someone to actually want to do this is for backwards compantibility with Kerberos v4 libraries, which by default a password was not required for authentication. Another difference between the two, is AS-REP requests a Kerberos Authentication Ticket (TGT) not a service authenitcation ticket (TGS).
-The hashes you get between As-Rep and Kerberoasting are different. To crack the hash (if using hashcat you will need to change from 13100 to 18200 this is because Kerberoast requests TGS and AS-REP request TGT)
+The hashes you get between AS-REP and Kerberoasting are different. To crack the hash (if using hashcat you will need to change from 13100 to 18200 this is because Kerberoast requests TGS and AS-REP request TGT)
 
 ![Pre-Auth](/images/pre-auth-disabled.png)
 
