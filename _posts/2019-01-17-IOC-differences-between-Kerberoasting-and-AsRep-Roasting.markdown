@@ -75,7 +75,7 @@ As you can see with this log, a kerberos service ticket was request. What I want
 
 ***Wireshark:*** *TGS-REQ/TGS-REP*
 
-![tgs-req1](/images/kerberoast-wireshark.PNG)
+![tgs-req1](/images/kerberoast-wireshark.png)
 
 With this Kerberoast attack you will see both AS-REQ/AS-REP before TGS-REQ/TGS-REP, because that is going to be the inital user authentication then you will see the TGS-REQ/TGS-REP because it authorizing the session ticket. That is because TGS stands for Ticket Granting Service and AS stands for Authentication Service. With version 5, Kerberos has 2 components for authorization: Ticket Granting Service (as you see here) and Authentication Service (as you will see here and in AS-REP). So it is authorizing the user through AS-REQ/AS-REP, then sending service ticket that was requested TGS-REQ/TGS-REP. 
 
