@@ -10,7 +10,7 @@ Before we get started though I want to explain these two attacks. Alot of people
 
 **Kerberoasting:**
 You have an account, and with that account you have a SPN (Service Principal Name). *This doesn't come automatically when you create the user, you HAVE to go and create the SPN.* This allows a client to request a service authentication without having the actual account name through Kerberos authentication. 
-When a Kerberoast attack is executed, an attacker uses an account’s SPN to request a service ticket through Kerberos. Within Kerberos authentication, when a service account ticket is made for a SPN it will send back an encrypted ticket (RC4 format), with the NTLM password hash of that account. The attacker can then crack that hash to find the password for that/those accounts.
+When the Kerberoasting attack technique is executed, an adversary can use Domain credentials captured on any user to request Kerberos TGS tickets for accounts that are associated with the SPN records in Active Directory (AD). The TGS tickets are signed with the targeted user or services NTLM hash. This can then be cracked offline to retrieve the clear text password. By default, the tools to automate this process will retrieve the TGS ticket in the encrypted RC4 algorithm. This is where we can start to build our baseline in detecting this attack. 
 The attacker can then crack that hash with hashcat 13100 and a wordlist to find the password for that/those accounts. 
 
 **AS-REP Roasting:**
@@ -60,7 +60,7 @@ I am going to show these logs, give a brief explanantion then do a *Difference* 
 
 Kerberoast:
 --
-Windows Logs can be used to detect and alert a Kerberoast attack technique. For this to work properly, the AD Domain Controller will need to configure and enable the “Audit Kerberos Service Ticket Operations” so that the Domain Controller logs Kerberos Service Ticket requests. 
+Native Windows Event Logging can be used to detect and alert the execution of the Kerberoast attack technique. For the robustness of this Alert Detection Strategy to succeed, the Domain Controllers’ advanced security auditing policy, will need to be configured and enabled to log the Kerberos Authentication Service and Service Ticket Operations. This will allow the Domain Controller to log Kerberos Service Ticket requests. 
 
 ***Windows Event ID 4769:*** *Kerberos service ticket was requested* 
 
