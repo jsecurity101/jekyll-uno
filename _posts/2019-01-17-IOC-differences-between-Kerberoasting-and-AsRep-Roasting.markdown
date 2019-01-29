@@ -9,8 +9,8 @@ Hello everyone! Thank you for tuning in. I was running a Kerberoast and AS-REP R
 Before we get started though I want to explain these two attacks. Alot of people categories these attacks as the same, but they are two pretty different attacks. So lets break it down.
 
 **Kerberoasting:**
-To understand Kerberoasting, there is an item we need to define that play a huge part during this attac technique.
-First Item is Service Principal Names (SPN). Each instance in Windows Service is uniquily identified by an SPN. Ths is because Kerberos authentication requires that with each service logon account, there must be at a SPN associated.  *This doesn't come automatically when you create the user, you HAVE to go and create the SPN.* This allows a client to request a service authentication without having the actual account name through Kerberos authentication. 
+To understand Kerberoasting, there is an item we need to define that plays a huge part during this attack technique.
+Service Principal Names (SPN) is used to uniquely identify a Windows Service. Kerberos authenticatoin actually requires that a SPN  Ths is because Kerberos authentication requires that with each service logon account there must be a SPN associated.  *This doesn't come automatically when you create the user, you HAVE to go and create the SPN.* This allows a client to request a service authentication without having the actual account name through Kerberos authentication. 
 
 When the Kerberoasting attack technique is executed, an adversary can use Domain credentials captured on any user to request Kerberos TGS tickets for accounts that are associated with the SPN records in Active Directory (AD). The TGS tickets are signed with the targeted user or services NTLM hash. This can then be cracked offline to retrieve the clear text password. By default, the tools to automate this process will retrieve the TGS ticket in the encrypted RC4 algorithm. This is where we can start to build our baseline in detecting this attack. 
 The attacker can then crack that hash with hashcat 13100 and a wordlist to find the password for that/those accounts. 
