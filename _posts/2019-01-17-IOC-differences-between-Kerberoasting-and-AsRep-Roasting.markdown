@@ -10,7 +10,7 @@ Before we get started though I want to explain these two attacks. Alot of people
 
 **Kerberoasting:**
 You have an account, and with that account you have a SPN (Service Principal Name). *This doesn't come automatically when you create the user, you HAVE to go and create the SPN.* This allows a client to request a service authentication without having the actual account name through Kerberos authentication. 
-The SPN is going to be a unique identifier of that account. Through kerberos, when you request a ticket for that specific spn it will send back an ecrypted ticket. So what the attacker will do is request a service ticket (TGS) specifically in RC4 format by default. That encryption with the NTLM hash of that account.
+When a Kerberoast attack is executed, an attacker uses an account’s SPN to request a service ticket through Kerberos. Within Kerberos authentication, when a service account ticket is made for a SPN it will send back an encrypted ticket (RC4 format), with the NTLM password hash of that account. The attacker can then crack that hash to find the password for that/those accounts.
 The attacker can then crack that hash with hashcat 13100 and a wordlist to find the password for that/those accounts. 
 
 **AS-REP Roasting:**
@@ -60,6 +60,7 @@ I am going to show these logs, give a brief explanantion then do a *Difference* 
 
 Kerberoast:
 --
+Windows Logs can be used to detect and alert a Kerberoast attack technique. For this to work properly, the AD Domain Controller will need to configure and enable the “Audit Kerberos Service Ticket Operations” so that the Domain Controller logs Kerberos Service Ticket requests. 
 
 ***Windows Event ID 4769:*** *Kerberos service ticket was requested* 
 
