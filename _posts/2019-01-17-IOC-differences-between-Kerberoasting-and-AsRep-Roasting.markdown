@@ -5,7 +5,7 @@ categories: Detection
 ---
 **Background**:
 ---
-Hello everyone! Thank you for tuning in. I was running a Kerberoast and AS-REP Roasting attack's on my Detection Lab, and noticed some really cool IOC (Indicator of Compromise) differences between the two.
+Hello everyone! Thank you for tuning in. I was running some Kerberoast and AS-REP Roasting attack techniques on my Detection Lab, and noticed some really cool IOC (Indicator of Compromise) differences between the two.
 Before we get started though I want to explain these two attacks. Alot of people categories these attacks as the same, but they are two pretty different attacks. So lets break it down.
 
 **Kerberoasting:**
