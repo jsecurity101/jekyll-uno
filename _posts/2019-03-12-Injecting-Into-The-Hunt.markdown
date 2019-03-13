@@ -25,7 +25,7 @@ Here is a screenshot of what it will look like after injecting into a process:
 
 You can see that the original agent was Powershell with a PID of 5636, then injected into the process win32calc with a PID of 5576.
 
----
+
 Onto the Hunt:
 ---
 In order to hunt, we need to create a hypothesis, this will help prevent analysis paralysis - Over analyzing an abundance of logs. To put this into perspective, say we are a Detection/Hunt Team and we got this alert from Microsoft ATA:
