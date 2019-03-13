@@ -7,9 +7,9 @@ tags:
 Background:
 ---
 Process Injection is a very common Defense Evasion/Privilege Escalation technique. Typically this will include injecting custom code into another processes address space.
-There are many different routes one can go when it comes the actual procedure of doing this attack. You can have Shellcode Injection, DLL Injection, Thread Hijacking, etc. Really good article for different technique types can be found: [Endgame 10 Process Injection Techniques](https://www.endgame.com/blog/technical-blog/ten-process-injection-techniques-technical-survey-common-and-trending-process).
+There are many different routes one can go when it comes the actual procedure of doing this attack. You can have Shellcode Injection, DLL Injection, Thread Hijacking, etc. Really good article for different technique types can be found: *[Endgame 10 Process Injection Techniques](https://www.endgame.com/blog/technical-blog/ten-process-injection-techniques-technical-survey-common-and-trending-process)*.
 
-For this blog, I performed a Reflective DLL using the [psinject](https://github.com/EmpireProject/Empire/blob/dev/lib/modules/powershell/management/psinject.py) module from [Empire](https://github.com/EmpireProject/Empire). This script was made to perform a Reflective DLL Injection based off of Stephen Fewers [Reflective DLL Injection Technique](https://github.com/stephenfewer/ReflectiveDLLInjection), which will execute a Powershell Script from memory into a remote process. 
+For this blog, I performed a Reflective DLL using the *[psinject](https://github.com/EmpireProject/Empire/blob/dev/lib/modules/powershell/management/psinject.py)* module from *[Empire](https://github.com/EmpireProject/Empire)*. This script was made to perform a Reflective DLL Injection based off of Stephen Fewers *[Reflective DLL Injection Technique](https://github.com/stephenfewer/ReflectiveDLLInjection)*, which will execute a Powershell Script from memory into a remote process. 
 Reflective DLL injection will work by creating a DLL that maps itself into memory when executed, instead of relying on the Window’s loader. Which makes the injection process the same as a shellcode injection, just the shellcode is replaced with a self-mapping DLL. 
 This Script will do the following to inject itself into a Remote Process:
 1. Targets a process for injection
@@ -42,7 +42,7 @@ As you can see from the above image of the injection, the original powershell PI
 
 Does anything stick out? The parent process was Command Prompt, but moved into Powershell, how do we know this? Look at the command line argument.  You can see a payload (not showing full payload) was executed, lets investigate further. 
 
-If we move into Olaf Hartong's [Threat Hunting App](https://github.com/olafhartong/ThreatHunting), we can see these logs as well. The first is going to be a raw sysmon log. What I want to point out is the "Destination Host" has the IP address of the box I used to perform this attack. This isn't in our Network - big red flag: 
+If we move into Olaf Hartong's *[Threat Hunting App](https://github.com/olafhartong/ThreatHunting)*, we can see these logs as well. The first is going to be a raw sysmon log. What I want to point out is the "Destination Host" has the IP address of the box I used to perform this attack. This isn't in our Network - big red flag: 
 
 ![ThreatRAW](/images/Injection-Raw-Sysmon.png)
 
@@ -56,7 +56,7 @@ The next step in our hunting process, after seeing the Powershell Execution (wit
 
 ![Powershell-Invoke](/images/Invoke.png)
 
-This can then lead our Hunt to finding where the adversary might be. Then used Jared Atkinson's [Get-InjectedThread.ps1](https://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2)
+This can then lead our Hunt to finding where the adversary might be. Then used Jared Atkinson's *[Get-InjectedThread.ps1](https://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2)*.
 
 ![Get-InjectedThread](/images/Get-InjectedThread.png)
 
@@ -69,12 +69,12 @@ I want to say thank you to Olaf Hartong, Chris Long, Jared Atkinson for their wo
 
 Resources:
 ---
-[Get-InjectedThread.ps1](https://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2) - Jared Atkinson
+***[Get-InjectedThread.ps1](https://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2)*** - Jared Atkinson
 
-[DetectionLab](https://github.com/clong/DetectionLab) - Chris Long
+***[DetectionLab](https://github.com/clong/DetectionLab)*** - Chris Long
 
-[Threat Hunting App](https://github.com/olafhartong/ThreatHunting) - Olaf Hartong
+***[Threat Hunting App](https://github.com/olafhartong/ThreatHunting)*** - Olaf Hartong
 
-[Endgame 10 Process Injection Techniques](https://www.endgame.com/blog/technical-blog/ten-process-injection-techniques-technical-survey-common-and-trending-process)
+***[Endgame 10 Process Injection Techniques](https://www.endgame.com/blog/technical-blog/ten-process-injection-techniques-technical-survey-common-and-trending-process)***
 
-[Mitre Attack- Process Injection](https://attack.mitre.org/techniques/T1055/)
+***[Mitre Attack- Process Injection](https://attack.mitre.org/techniques/T1055/)***
