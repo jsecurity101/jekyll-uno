@@ -10,7 +10,7 @@ Process Injection is a very common Defense Evasion/Privilege Escalation techniqu
 There are many different routes one can go when it comes the actual procedure of doing this attack. You can have Shellcode Injection, DLL Injection, Thread Hijacking, etc. Really good article for different technique types can be found: [Endgame 10 Process Injection Techniques](https://www.endgame.com/blog/technical-blog/ten-process-injection-techniques-technical-survey-common-and-trending-process).
 
 For this blog, I performed a Reflective DLL using the [psinject](https://github.com/EmpireProject/Empire/blob/dev/lib/modules/powershell/management/psinject.py) module from [Empire](https://github.com/EmpireProject/Empire). This script was made to perform a Reflective DLL Injection based off of Stephen Fewers [Reflective DLL Injection Technique](https://github.com/stephenfewer/ReflectiveDLLInjection), which will execute a Powershell Script from memory into a remote process. 
-Reflective DLL injection will works by creating a DLL that maps itself into memory when executed, instead of relying on the Window’s loader. Which makes the injection process the same as a shellcode injection, just the shellcode is replaced with a self-mapping DLL. 
+Reflective DLL injection will work by creating a DLL that maps itself into memory when executed, instead of relying on the Window’s loader. Which makes the injection process the same as a shellcode injection, just the shellcode is replaced with a self-mapping DLL. 
 This Script will do the following to inject itself into a Remote Process:
 1. Targets a process for injection
 2. Calls VirtualAllocEx - to have a space to write its path to the DLL.
