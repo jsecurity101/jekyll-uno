@@ -70,11 +70,11 @@ I want to say thank you to Olaf Hartong, Chris Long, Jared Atkinson for their wo
 
 Resources:
 ---
-***[Get-InjectedThread.ps1](https://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2)*** - Jared Atkinson
+***[Get-InjectedThread.ps1](https://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2)*** - **Jared Atkinson**
 
-***[DetectionLab](https://github.com/clong/DetectionLab)*** - Chris Long
+***[DetectionLab](https://github.com/clong/DetectionLab)*** - **Chris Long**
 
-***[Threat Hunting App](https://github.com/olafhartong/ThreatHunting)*** - Olaf Hartong
+***[Threat Hunting App](https://github.com/olafhartong/ThreatHunting)*** - **Olaf Hartong**
 
 ***[Endgame 10 Process Injection Techniques](https://www.endgame.com/blog/technical-blog/ten-process-injection-techniques-technical-survey-common-and-trending-process)***
 
