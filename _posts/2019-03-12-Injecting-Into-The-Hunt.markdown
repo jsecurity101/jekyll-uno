@@ -36,7 +36,7 @@ Then upon further analysis we come across this:
 
 ![ATA](/images/ATA2.png)
 
-This is a red flag, this shows someone has accessed our enviroment from an unkown source and could be moving around, collecting data, whatever they might be doing. So the Hunt begins to find this adversary and find the Technique they used to infiltrate our enviroment. 
+This is a red flag, this shows someone has accessed our enviroment from an unknown source and could be moving around, collecting data, whatever they might be doing. So the Hunt begins to find this adversary and find the Technique they used to infiltrate our enviroment. 
 As you can see from the above image of the injection, the original powershell PID is 5636. Inside of Sysmon Event ID, we see ID 1 - Create Process: 
 
 ![SYSMON](/images/cmd.png)
