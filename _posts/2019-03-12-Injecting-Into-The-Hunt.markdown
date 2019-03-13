@@ -53,7 +53,7 @@ Which could be why we see RuntimeBroker -Embedding (because we embedded inside o
 
 ![Threat-Hunting-Runtime](/images/Runtime.png)
 
-The next step in our hunting process, after seeing the Powershell Execution (with Command Prompt being the Parent Proces) and also seeing RuntimeBroker -Embedding, would be to go to see the Powershell Events. See what the script block logs are collecting. When doing so we come across Event ID 4104. We see here "Invoke-PSInject" was used along with the payload:
+The next step in our hunting process, after seeing the Powershell Execution (with Command Prompt being the Parent Process) and also seeing RuntimeBroker -Embedding, would be to go to see the Powershell Events. See what the script block logs are collecting. When doing so we come across Event ID 4104. We see here "Invoke-PSInject" was used along with the payload:
 
 ![Powershell-Invoke](/images/Invoke.png)
 
