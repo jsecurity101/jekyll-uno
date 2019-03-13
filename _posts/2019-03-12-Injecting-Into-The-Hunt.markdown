@@ -7,9 +7,9 @@ tags:
 Background:
 ---
 Process Injection is a very common Defense Evasion/Privilege Escalation technique. Typically this will include injecting custom code into another processes address space.
-There are many different routes one can go when it comes to the actual procedure of doing this attack. You can have Shellcode Injection, DLL Injection, Thread Hijacking, etc. Really good article for different technique types can be found: *[Endgame 10 Process Injection Techniques](https://www.endgame.com/blog/technical-blog/ten-process-injection-techniques-technical-survey-common-and-trending-process)*.
+There are many different routes one can go when it comes to the actual procedure of doing this attack. Really good article explaining the various process injection types: *[Endgame 10 Process Injection Techniques](https://www.endgame.com/blog/technical-blog/ten-process-injection-techniques-technical-survey-common-and-trending-process)*.
 
-For this blog, I performed a Reflective DLL using the *[psinject](https://github.com/EmpireProject/Empire/blob/dev/lib/modules/powershell/management/psinject.py)* module from *[Empire](https://github.com/EmpireProject/Empire)*. This script was made to perform a Reflective DLL Injection based off of Stephen Fewers *[Reflective DLL Injection Technique](https://github.com/stephenfewer/ReflectiveDLLInjection)*, which will execute a Powershell Script from memory into a remote process. 
+For this post, I performed a Reflective DLL Injection using the *[psinject](https://github.com/EmpireProject/Empire/blob/dev/lib/modules/powershell/management/psinject.py)* module from *[Empire](https://github.com/EmpireProject/Empire)*. Psinject is based off of Stephen Fewer's *[Reflective DLL Injection Technique](https://github.com/stephenfewer/ReflectiveDLLInjection)*, which will execute a Powershell Script from memory into a remote process. 
 Reflective DLL injection will work by creating a DLL that maps itself into memory when executed, instead of relying on the Window’s loader. Which makes the injection process the same as a shellcode injection, just the shellcode is replaced with a self-mapping DLL. 
 This Script will do the following to inject itself into a Remote Process:
 
