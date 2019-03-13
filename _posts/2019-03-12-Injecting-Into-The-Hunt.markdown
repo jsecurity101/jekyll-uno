@@ -12,6 +12,7 @@ There are many different routes one can go when it comes the actual procedure of
 For this blog, I performed a Reflective DLL using the *[psinject](https://github.com/EmpireProject/Empire/blob/dev/lib/modules/powershell/management/psinject.py)* module from *[Empire](https://github.com/EmpireProject/Empire)*. This script was made to perform a Reflective DLL Injection based off of Stephen Fewers *[Reflective DLL Injection Technique](https://github.com/stephenfewer/ReflectiveDLLInjection)*, which will execute a Powershell Script from memory into a remote process. 
 Reflective DLL injection will work by creating a DLL that maps itself into memory when executed, instead of relying on the Window’s loader. Which makes the injection process the same as a shellcode injection, just the shellcode is replaced with a self-mapping DLL. 
 This Script will do the following to inject itself into a Remote Process:
+
 1. Targets a process for injection
 2. Calls VirtualAllocEx - to have a space to write its path to the DLL.
 3. Calls WriteProcessMemory - to write the path in allocated memory.
