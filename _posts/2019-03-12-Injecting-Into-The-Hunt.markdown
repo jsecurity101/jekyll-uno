@@ -64,7 +64,7 @@ As you can see, there was a process injected into win32calc.exe. We have found t
 
 Conclusion:
 ---
-This Hunt/Detection was meant to give an overview or a start, on how to possibly hunt for Process Injection Attacks. I have always been facinated with Process Injection along with Memory and thought this would be a cool blog to do. I plan on doing another blog on Process Injection/Memory in the future, but wanted to throw this blog out first. 
+This Hunt/Detection was meant to give an overview or a start, on how to possibly hunt for Process Injection Attack Techniques. I have always been facinated with Process Injection and Memory and thought this would be a cool blog to do. I plan on doing another blog on Process Injection/Memory in the future, but wanted to throw this blog out first. 
 I want to say thank you to Olaf Hartong, Chris Long, Jared Atkinson for their work on the tools that I used in my blog. They have all been linked. I hope you have enjoyed this blog and found it informational! 
 
 Resources:
