@@ -14,7 +14,7 @@ Service Principal Names (SPN) is used to uniquely identify a Windows Service. Ke
 
 *The SPN is not automatically created when you create the user in Active Dirtectory, you HAVE to go and create the SPN. You can see below how to do this:* 
 
-![set-spn](/images/IOC Differences between Kerberoasting and ASRep Roasting/set-spn.png)
+![set-spn](/images/set-spn.png)
 ![set-spn2](/images/set-spn2.png)
 
 When the Kerberoasting attack technique is executed, an adversary can use Domain credentials captured on any user to request Kerberos TGS tickets for accounts that are associated with the SPN records in Active Directory (AD). The TGS tickets are signed with the targeted user or services NTLM hash. This can then be cracked offline to retrieve the clear text password. By default, the tools to automate this process will retrieve the TGS ticket in the encrypted RC4 algorithm. This is where we can start to build our baseline in detecting this attack. 
