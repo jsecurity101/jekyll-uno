@@ -18,7 +18,7 @@ I will be showing results from Microsoft Advanced Threat Analytics, Splunk (Thre
 
 This first image is from my Kali Linux box after I performed the kerberos enum attack:
 
-![Kerberos-Enumeration](/images/kerb-enum.jpg)
+![Kerberos-Enumeration](/images/Kerberos-Enumeration-Detection/kerb-enum.jpg)
 
 This shows the result of the actual attack and what users were actually on the DC. (You might enjoy the user theme I have going..) **Note** you will see there is the password for one user in here, this is because I put the password in the wordlist to see if it would return anything for results. 
 
