@@ -15,7 +15,7 @@ Service Principal Names (SPN) is used to uniquely identify a Windows Service. Ke
 *The SPN is not automatically created when you create the user in Active Dirtectory, you HAVE to go and create the SPN. You can see below how to do this:* 
 
 ![set-spn](/images/Kerberoasting-vs-ASRep/set-spn.png)
-![set-spn2](/images/set-spn2.png)
+![set-spn2](/images/Kerberoasting-vs-ASRep/set-spn2.png)
 
 When the Kerberoasting attack technique is executed, an adversary can use Domain credentials captured on any user to request Kerberos TGS tickets for accounts that are associated with the SPN records in Active Directory (AD). The TGS tickets are signed with the targeted user or services NTLM hash. This can then be cracked offline to retrieve the clear text password. By default, the tools to automate this process will retrieve the TGS ticket in the encrypted RC4 algorithm. This is where we can start to build our baseline in detecting this attack. 
 The adversary can then crack that hash with hashcat 13100 and a wordlist to find the password for that/those accounts. 
@@ -24,7 +24,7 @@ The adversary can then crack that hash with hashcat 13100 and a wordlist to find
 AS-REP Roasting has the same IDEA of Kerberoasting but is different in the fact that an account needs "Do not require Kerberos preauthentication". For Kerberos v5 you have to manually go in and disable Kerberos pre-auth. The only reason I can think of someone to actually want to do this is for backwards compantibility with Kerberos v4 libraries, which by default a password was not required for authentication. Another difference between the two, is AS-REP requests a Kerberos Authentication Ticket (TGT) not a service authenitcation ticket (TGS).
 The hashes you get between AS-REP and Kerberoasting are different. To crack the hash (if using hashcat you will need to change from 13100 to 18200 this is because Kerberoast requests TGS and AS-REP request TGT)
 
-![Pre-Auth](/images/pre-auth-disabled.png)
+![Pre-Auth](/images/Kerberoasting-vs-ASRep/pre-auth-disabled.png)
 
 *If you want to disable Kerberos Pre-Auth this is where you want to go*
 
@@ -36,11 +36,11 @@ When doing this attack, I did it with the intent of collecting logs and IOC's. W
 
 ***Credential_Access:***
 
-![Splunk-Golden](/images/splunk-golden.png)
+![Splunk-Golden](/images/Kerberoasting-vs-ASRep/splunk-golden.png)
 
 ***Raw Logs:***
 
-![raw](/images/rawlogs.png)
+![raw](/images/Kerberoasting-vs-ASRep/rawlogs.png)
 
 *Image is very hard to see, I apologize, main thing I want to point out in this image is lsass.exe. I explain below.*
 
@@ -64,29 +64,29 @@ Native Windows Event Logging can be used to detect and alert the execution of th
 
 ***Windows Event ID 4769:*** *Kerberos service ticket was requested* 
 
-![4769](/images/windows-4769.png)
+![4769](/images/Kerberoasting-vs-ASRep/windows-4769.png)
 
 
 ***Windows Event ID 4768:*** *Kerberos authentication ticket was requested* 
 
-![4768](/images/windows-4768-kerberoast.png)
+![4768](/images/Kerberoasting-vs-ASRep/windows-4768-kerberoast.png)
 
 As you can see with this log, a kerberos service ticket was request. What I want to point out is a service *and* a authentication ticket was request when this attack was performed. Keep this in mind as we move forward to AS-REP. 
 
 
 ***Wireshark:*** *TGS-REQ/TGS-REP*
 
-![tgs-req1](/images/kerberoast-wireshark.png)
+![tgs-req1](/images/Kerberoasting-vs-ASRep/kerberoast-wireshark.png)
 
 With this Kerberoast attack you will see both AS-REQ/AS-REP before TGS-REQ/TGS-REP, because that is going to be the inital user authentication then you will see the TGS-REQ/TGS-REP because it authorizing the session ticket. That is because TGS stands for Ticket Granting Service and AS stands for Authentication Service. With version 5, Kerberos has 2 components for authorization: Ticket Granting Service (as you see here) and Authentication Service (as you will see here and in AS-REP). So it is authorizing the user through AS-REQ/AS-REP, then sending service ticket that was requested TGS-REQ/TGS-REP. 
 
 ***Wireshark:*** *TGS-REQ*
 
-![tgs-req2](/images/kerberoast-request.png)
+![tgs-req2](/images/Kerberoasting-vs-ASRep/kerberoast-request.png)
 
 ***Wireshark:*** *TGS-REP*
 
-![tgs-req3](/images/kerberoast-response.png)
+![tgs-req3](/images/Kerberoasting-vs-ASRep/kerberoast-response.png)
 
 Through these two packets you can see what user was used to authenticate. Now I would like to point out, that I may have only showed one user, you will see more then one user TGS-REQ/TGS-REP under the sname tab. This is gathering other service namees being requested, this is now giving the attacker the tickets for other users, which the attacker can crack the hash for their passwords as well.  
 
@@ -96,34 +96,34 @@ AS-REP Roasting:
 
 ***Windows Event ID 4769:*** *Kerberos service ticket was requested* 
 
-![as-4768](/images/windows-4768.png)
+![as-4768](/images/Kerberoasting-vs-ASRep/windows-4768.png)
 
 
 ***Windows Event ID 4625:*** *An account failed to log on* 
 
-![4625](/images/windows-4625.png)
+![4625](/images/Kerberoasting-vs-ASRep/windows-4625.png)
 
 I would like to point out, as you saw before with the Kerberoasting Windows Event's you saw both 4768 AND 4769. With AS-REP you see 4768 and 4625. This is because, the user does not need to be pre authenticated, so you don't need to know the password. If you have a password to a user, there is no need to do an AS-REP, but just do a Kerberoast. Then you will see the logs like the ones above. 
 
 ***Wireshark:*** *Invalid creds* ***Red Flag***
 
-![invalid](/images/wireshark-invalid.png)
+![invalid](/images/Kerberoasting-vs-ASRep/wireshark-invalid.png)
 
 This stuck out to me immediately. You see a *bindRequest* with NTLMSSP-AUTH then then the user's id. Then you see *Invalid credentials.* Sure you get user's who forget their passwords and this might come up, but followed by As-REQ/AS-REP? I think not. That is way too coincidental for me. 
 
 ***Wireshark:*** *AS-REQ/AS-REP*
 
-![asrep-asreq](/images/wireshark-asrep-asrec.png)
+![asrep-asreq](/images/Kerberoasting-vs-ASRep/wireshark-asrep-asrec.png)
 
 
 ***Wireshark:*** *AS-REP*
 
-![asrec](/images/asrec.png)
+![asrec](/images/Kerberoasting-vs-ASRep/asrec.png)
 
 
 ***Wireshark:*** *AS-REQ*
 
-![asrep](/images/asrep.png)
+![asrep](/images/Kerberoasting-vs-ASRep/asrep.png)
 
 In AS-REP I showed cname in the packet, where in Kerberoast I showed only sname. The reason for that is this, in Kerberoast you will see both and get a value for both because it is authenitcating through one user:cname and grabbing other service names: sname. I did this to show the difference in the attacks: AS-REP you will only get a value for cname. No sname. Why? It is not requesting a service names and not requesting service authentication. AS-REP is requesting Kerberos Authentication and because the user has "Pre-Authentication" disabled it doesn't need the right password to recieve the ticket. 
 
