@@ -62,14 +62,14 @@ Kerberoast:
 --
 Native Windows Event Logging can be used to detect and alert the execution of the Kerberoast attack technique. For the robustness of this Detection to succeed, the Domain Controllers’ advanced security auditing policy, will need to be configured and enabled to log the Kerberos Authentication Service and Service Ticket Operations. This will allow the Domain Controller to log Kerberos Service Ticket requests. 
 
+***Windows Event ID 4768:*** *Kerberos authentication ticket (TGT) was requested* 
+
+![4768](/images/Kerberoasting-vs-ASRep/windows-4768-kerberoast.png)
+
 ***Windows Event ID 4769:*** *Kerberos service ticket was requested* 
 
 ![4769](/images/Kerberoasting-vs-ASRep/windows-4769.png)
 
-
-***Windows Event ID 4768:*** *Kerberos authentication ticket was requested* 
-
-![4768](/images/Kerberoasting-vs-ASRep/windows-4768-kerberoast.png)
 
 As you can see with this log, a kerberos service ticket was request. What I want to point out is a service *and* a authentication ticket was request when this attack was performed. Keep this in mind as we move forward to AS-REP. 
 
