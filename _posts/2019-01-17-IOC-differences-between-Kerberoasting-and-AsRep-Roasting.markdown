@@ -94,7 +94,7 @@ Through these two packets you can see what user was used to authenticate. Now I 
 AS-REP Roasting:
 --
 
-***Windows Event ID 4769:*** *Kerberos service ticket was requested* 
+***Windows Event ID 4768:*** *Kerberos authentication ticket (TGT) was requested* 
 
 ![as-4768](/images/Kerberoasting-vs-ASRep/windows-4768.png)
 
