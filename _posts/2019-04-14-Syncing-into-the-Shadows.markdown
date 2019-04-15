@@ -1,6 +1,6 @@
 ---
-title:  "Kerberos Enumeration Detection"
-date:   2018-12-20 
+title:  "Syncing Into the Shadows"
+date:   2019-04-14 
 categories: Detection
 ---
 
