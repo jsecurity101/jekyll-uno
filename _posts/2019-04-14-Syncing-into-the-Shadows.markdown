@@ -215,6 +215,10 @@ Final Thoughts:
 ---
 <p>DCSync and DCShadow at first to me sounded very similar. I wanted to give others the clear difference in the two attacks. DCSync is used to capture credentials, where DCShadow is used for Defense Evasion by having the ability to inject objects into the Active Directory Infrastructure. I hope you found this informational and also enjoyed the Marvel references. ☺</p>
 
+Marvel Explanation:
+---
+If you follow Marvel, you know in the movie "Avengers: Age of Ultron", Tony Stark had a AI (which he created) named "JARVIS". JARVIS later turned into Vision, who had the Mind Stone attached to his head. In "Avengers: Endgame", Thanos removed the stone from Vison (killing him), giving Thanos the last infinity stone. Which made him all powerful, which led to him wiping out half of the world. 
+
 Resources:
 ---
 <p>If any of the following read this blog, I would like to say thank your work, along with your write ups. They are a huge help.</p>
