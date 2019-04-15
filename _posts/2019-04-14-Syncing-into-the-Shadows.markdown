@@ -68,7 +68,9 @@ Onto the Attack:
 <li><p><strong>ac8e786b4305cf56937c8a08b175ed6b</strong></p></li>
 </ul>
 <p>After cracking this, Vision’s password is <strong>LastStone1!</strong> (hint hint)</p>
-<img src=https://media.giphy.com/media/uzRld9XdlmSJ2/giphy.gif />
+
+![vision](/images/DCSync-vs-DCShadow/vision.webp)
+
 <p>Now that DA credentials have been captured and since the adversary knows that DCSync can be detected, why not evade detection and inject another user into the DA Group?</p>
 
 <p><strong>DCShadow:</strong></p>
