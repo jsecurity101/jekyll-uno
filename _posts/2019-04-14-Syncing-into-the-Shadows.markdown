@@ -19,19 +19,22 @@ Background:
 <tr class="header">
 <th><strong>Tatics</strong></th>
 <th><strong>Techniques</strong></th>
+<th><strong>Sub-Technique</strong></th>
 <th><strong>Procedure</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Credential Access</td>
-<td>DCSync</td>
-<td>Mimikatz</td>
+<td><a href="https://attack.mitre.org/tactics/TA0006/"><strong>Credential Access</strong></a></td>
+<td><a href="https://attack.mitre.org/techniques/T1003/"><strong>Credential Dumping</strong></a></td>
+<td><a href="https://attack.mitre.org/techniques/T1003/"><strong>DCSync</strong></a></td>
+<td><a href="https://attack.mitre.org/software/S0002"><strong>Mimikatz</strong></a></td>
 </tr>
 <tr class="even">
-<td>Defense Evasion</td>
-<td>DCShadow</td>
-<td>Mimikatz</td>
+  <td><a href="https://attack.mitre.org/tactics/TA0005/"><strong>Defense Evasion</strong></a></td>
+  <td><a href="https://attack.mitre.org/techniques/T1207/"><strong>DCShadow</strong></a></td>
+  <td><strong>N/A</strong></a></td>
+  <td><a href="https://attack.mitre.org/software/S0002"><strong>Mimikatz</strong></a></td>
 </tr>
 </tbody>
 </table>
