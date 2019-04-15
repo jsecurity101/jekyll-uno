@@ -33,7 +33,7 @@ Background:
 <tr class="even">
   <td><a href="https://attack.mitre.org/tactics/TA0005/"><strong>Defense Evasion</strong></a></td>
   <td><a href="https://attack.mitre.org/techniques/T1207/"><strong>DCShadow</strong></a></td>
-  <td><strong>N/A</strong></a></td>
+  <td><strong>N/A</strong></td>
   <td><a href="https://attack.mitre.org/software/S0002"><strong>Mimikatz</strong></a></td>
 </tr>
 </tbody>
