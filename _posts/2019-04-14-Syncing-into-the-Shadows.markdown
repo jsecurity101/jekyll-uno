@@ -7,13 +7,13 @@ categories: Detection
 Introduction:
 ---
 <p>As an adversary, one of the goals is to capture Domain Admin (DA) credentials, change/modify objects inside of Active Directory, and to be able to evade any detection systems that an environment may have in place.</p>
-<p>One way you can capture DA credentials is through an attack technique called “DCSync”. DCSync is an attack technique that many security professionals, like <a href="https://adsecurity.org/?p=1729">Sean Metcalf</a> and <a href="http://www.harmj0y.net/blog/redteaming/mimikatz-and-dcsync-and-extrasids-oh-my/">Will Schroeder</a> have talked about. Once an adversary has DA privileges, they can then perform a defensive evasion technique attack, by injecting objects into the Active Directory Infrastructure. This attack technique is called “DCShadow”. There is a great presentation on DCShadow that was done by <a href="https://www.dcshadow.com/">Benjamin Delpy and Vincent Letoux</a> which I highly suggest going to, to read and watch.</p>
+<p>One way you can capture DA credentials is through an attack technique called “DCSync”. DCSync is an attack technique that many security professionals, like <a href="https://adsecurity.org/?p=1729"><strong>Sean Metcalf</strong></a> and <a href="http://www.harmj0y.net/blog/redteaming/mimikatz-and-dcsync-and-extrasids-oh-my/"><strong>Will Schroeder</strong></a> have talked about. Once an adversary has DA privileges, they can then perform a defensive evasion technique attack, by injecting objects into the Active Directory Infrastructure. This attack technique is called “DCShadow”. There is a great presentation on DCShadow that was done by <a href="https://www.dcshadow.com/"><strong>Benjamin Delpy and Vincent Letoux</strong></a> which I highly suggest going to, to read and watch.</p>
 <p>DCSync and DCShadow sound very similar and could be confusing to understand the differences if not explained. I am going to talk about the differences in DCSync and DCShadow when it comes to their functionality as an attack technique, along with differences when it comes to Indicators of Compromise (IOC) and hunting/detecting these two techniques.</p>
 <p>When running these two attacks I wanted to have some fun with it, as I am a big Marvel fan, let me know if you catch any of the references and WHY some of the users were used. I will explain at the end ☺</p>
 
 Background:
 ---
-<p>To start taking a look at these two attacks in a Tactics, Technique, and Procedure (TTP) standpoint, can help give a baseline at the differences in these two attack and what they are used for. This is from the <a href="https://attack.mitre.org/">Mitre Att&amp;ck Framework</a>:</p>
+<p>To start taking a look at these two attacks in a Tactics, Technique, and Procedure (TTP) standpoint, can help give a baseline at the differences in these two attack and what they are used for. This is from the <a href="https://attack.mitre.org/"><strong>Mitre Att&amp;ck Framework</strong></a>:</p>
 <table>
 <thead>
 <tr class="header">
@@ -43,7 +43,7 @@ Background:
 
 <p><strong><i>Non-Technical Overview:</i></strong> This is done by registering the host machine you are on as a (rogue) Domain Controller, creating/modifying objects then pushing them out to the legitimate Domain Controller in the environment.</p>
 
-<p><strong><i>Technical Overview:</i></strong> Inside of each Domain Controller, there is a built-in process called the knowledge consistency checker <a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/replication/active-directory-replication-concepts">(KCC).</a> This handles the replication topology for the Active Directory forest. Also, inside of the Domain Controller is a Directory System Agent (DSA) called Ntdsa.dll, that runs. This is to provide access to the directory database inside of Active Directory (AD). Within the DSA is a forest-wide object <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-srpl/4c62c74a-b55c-47d1-b575-33395a727d97">(nTDSDSA)</a> that represents the DSA on the Domain Controller. DCShadow allows the adversary to create a new nTDSDSA object in the rogue Domain Controller and replicate that change to the legitimate Domain Controller because of the KCC.</p>
+<p><strong><i>Technical Overview:</i></strong> Inside of each Domain Controller, there is a built-in process called the knowledge consistency checker <a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/replication/active-directory-replication-concepts">(KCC).</a> This handles the replication topology for the Active Directory forest. Also, inside of the Domain Controller is a Directory System Agent (DSA) called Ntdsa.dll, that runs. This is to provide access to the directory database inside of Active Directory (AD). Within the DSA is a forest-wide object <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-srpl/4c62c74a-b55c-47d1-b575-33395a727d97"><strong>(nTDSDSA)</strong></a> that represents the DSA on the Domain Controller. DCShadow allows the adversary to create a new nTDSDSA object in the rogue Domain Controller and replicate that change to the legitimate Domain Controller because of the KCC.</p>
 <strong>Note</strong> In order to successfully complete this attack you MUST already have Domain Admin or Enterprise Admin privileges.
 
 Onto the Attack:
@@ -58,7 +58,7 @@ Onto the Attack:
 <ul>
 <li><p><strong>domain groups “domain admins” /domain</strong></p></li>
 </ul>
-<p>See that “vision” is a user in the DA group. This could be a good target. To grap the user’s ntlm hash, this command can be ran inside of <a href="https://github.com/gentilkiwi/mimikatz">Mimikatz</a>:</p>
+<p>See that “vision” is a user in the DA group. This could be a good target. To grap the user’s ntlm hash, this command can be ran inside of <a href="https://github.com/gentilkiwi/mimikatz"><strong>Mimikatz</strong></a>:</p>
 <ul>
 <li><p><strong>lsadump::dcsync /domain:windomain.local /user:vision</strong></p></li>
 <li><p><strong>lsadump::dcsync /push</strong></p></li>
@@ -220,18 +220,18 @@ Resources:
 <p>If any of the following read this blog, I would like to say thank your work, along with your write ups. They are a huge help.</p>
 <p><strong>DCSync:</strong></p>
 <ul>
-<li><p><a href="https://adsecurity.org/?p=1729">Mimikatz DCSync Usage, Exploitation, and Detection</a> by Sean Metcalf</p></li>
-<li><p><a href="http://www.harmj0y.net/blog/redteaming/mimikatz-and-dcsync-and-extrasids-oh-my/">Mimikatz and DCSync and ExtraSids, Oh My</a> by Will Schroeder</p></li>
-<li><p><a href="https://github.com/Cyb3rWard0g/mordor">Mordor Gates</a> by Roberto Rodriguez</p></li>
+<li><p><a href="https://adsecurity.org/?p=1729"><strong>Mimikatz DCSync Usage, Exploitation, and Detection</strong></a> by Sean Metcalf</p></li>
+<li><p><a href="http://www.harmj0y.net/blog/redteaming/mimikatz-and-dcsync-and-extrasids-oh-my/"><strong>Mimikatz and DCSync and ExtraSids, Oh My</strong></a> by Will Schroeder</p></li>
+<li><p><a href="https://github.com/Cyb3rWard0g/mordor"><strong>Mordor Gates</strong></a> by Roberto Rodriguez</p></li>
 </ul>
 <p><strong>DCShadow:</strong></p>
 <ul>
-<li><p><a href="https://blog.alsid.eu/dcshadow-explained-4510f52fc19d">DCShadow explained</a> by Luc Delsalle</p></li>
-<li><p><a href="https://www.dcshadow.com/">DCShadow</a> by Benjamin Delpy and Vincent Letoux</p></li>
-<li><p><a href="https://pentestlab.blog/2018/04/16/dcshadow/">DCShadow</a> by netboisx</p></li>
+<li><p><a href="https://blog.alsid.eu/dcshadow-explained-4510f52fc19d"><strong>DCShadow explained</strong></a> by Luc Delsalle</p></li>
+<li><p><a href="https://www.dcshadow.com/"><strong>DCShadow</strong></a> by Benjamin Delpy and Vincent Letoux</p></li>
+<li><p><a href="https://pentestlab.blog/2018/04/16/dcshadow/"><strong>DCShadow</strong></a> by netboisx</p></li>
 </ul>
 <p><strong>Other:</strong></p>
 <ul>
-<li><p><a href="https://github.com/clong/DetectionLab">Detection Lab</a> by Chris Long</p></li>
-<li><p><a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/replication/active-directory-replication-concepts">KCC</a> by Microsoft</p></li>
+<li><p><a href="https://github.com/clong/DetectionLab"<strong>>Detection Lab</strong></a> by Chris Long</p></li>
+<li><p><a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/replication/active-directory-replication-concepts"><strong>KCC</strong></a> by Microsoft</p></li>
 </ul>
