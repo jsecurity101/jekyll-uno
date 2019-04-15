@@ -56,7 +56,7 @@ Onto the Attack:
 <a href="https://jsecurity101.tinytake.com/sf/MzQ1NjQzNV8xMDM1NTA1Mg">![dcsync](/images/DCSync-vs-DCShadow/DCSync.PNG)</a>
 
 <p>Let’s take a closer look and talk about what is going on during the DCSync attack and go over why I demonstrated the DCSync first along with the privileges used to perform this attack:</p>
-<p>An adversary has enumerated the user: ironman@windomain.loca, which is in the Administrators Group, what does this mean? This user has full control over the Domain Controller(s) in this domain. BUT we want Domain Admin (DA) so the adversary can have control over the whole domain.</p>
+<p>An adversary has enumerated the user: ironman@windomain.local, which is in the Administrators Group, what does this mean? This user has full control over the Domain Controller(s) in this domain. BUT we want Domain Admin (DA) so the adversary can have control over the whole domain.</p>
 <p>A next step might be to check to see who is in the DA group, so we can target said user. To check this, the command ran was:</p>
 <ul>
 <li><p><strong>domain groups “domain admins” /domain</strong></p></li>
