@@ -232,6 +232,6 @@ Resources:
 </ul>
 <p><strong>Other:</strong></p>
 <ul>
-<li><p><a href="https://github.com/clong/DetectionLab"<strong>>Detection Lab</strong></a> by Chris Long</p></li>
+<li><p><a href="https://github.com/clong/DetectionLab"<strong>Detection Lab</strong></a> by Chris Long</p></li>
 <li><p><a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/replication/active-directory-replication-concepts"><strong>KCC</strong></a> by Microsoft</p></li>
 </ul>
