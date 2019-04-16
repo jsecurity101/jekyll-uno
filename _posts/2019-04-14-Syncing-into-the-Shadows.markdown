@@ -102,13 +102,10 @@ Onto the Attack:
 <li><p><strong>domain group “domain admins” /domain</strong></p></li>
 </ul>
 
-**Note** You could have two seperate Mimikatz Consoles opened at the same time to run this attack. Commands are the same, but before the <i> lsadump::dcshadow /push </i> you would need to run <i> privilege::debug </i> to give the subprocess SYSTEM level privileges.
-
-
 
 ![thanos](/images/DCSync-vs-DCShadow/thanos-gif.gif)
 
-
+**Note** You could have two seperate Mimikatz Consoles opened at the same time to run this attack. Commands are the same, but before the <i> lsadump::dcshadow /push </i> you would need to run <i> privilege::debug </i> to give the subprocess SYSTEM level privileges.
 
 Onto the Hunt (the best part):
 ---
