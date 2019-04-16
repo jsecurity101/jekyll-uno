@@ -140,7 +140,7 @@ Onto the Hunt (the best part):
 
 ![DCSync-DCShadow](/images/DCSync-vs-DCShadow/dsuapi.png)
 
-<p>DCSync is easier to detect once we look at the network. You see these different directory service operations: DsGetDomainControllerInfo, DsCrackNames, DsGetNChanges. As Sean Metcalf explains in his <a href="https://adsecurity.org/?p=1729">post</a>, a way to detect bad activity is to configure the IDS to trigger when you DsGetNChanges request originates from a non-Domain Controllers IP address.</p>
+<p>DCSync is easier to detect once we look at the network. You see these different directory service operations: DsGetDomainControllerInfo, DsCrackNames, DsGetNChanges. As Sean Metcalf explains in his <a href="https://adsecurity.org/?p=1729">post</a>, a way to detect bad activity is to configure the IDS to trigger when you DsGetNCChanges request originates from a non-Domain Controllers IP address.</p>
 <p>Here is another an example of what dce_rpc.log in BRO will look like as well:</p>
 
 ![DCSync-DCShadow](/images/DCSync-vs-DCShadow/bro-dcsync.png)
