@@ -84,14 +84,22 @@ Onto the Attack:
 <p>I want to point out, that in this attack we are modifying two things. Firstly, the computers (win10.windomain.local) attribute to classify as a Global Catalog (GC- a role given to one or more Domain Controllers in the environment so that it can store data about every object in the forest). This allows the computer to be a rogue Domain Controller and push out modifications to objects to the legitimate Domain Controller. Secondly, we are modifying Thanos’ privileges to give him DA rights.</p>
 <p>How do can this be done? By running these commands inside of <a href="https://github.com/gentilkiwi/mimikatz">Mimikatz</a>:</p>
 <ul>
-  <li><p><strong><i> Open Mimikatz Console </i></strong></li>
+  
+<li><p><strong><i> Open Mimikatz Console </i></strong></li>
+  
 <li><p><strong>!+</strong> (Registers and starts a service with SYSTEM level privileges)</p></li>
+
 <li><p><strong>!processtoken</strong> (Gives the System Token to Mimikatz so it has the appropriate privileges to run the following commands)</p></li>
+
 <li><p><strong>lsadump::dcshadow /object:thanos /attribute:primaryGroupID /value:512</strong> (This will will use the Security Identifier (512) of the DA Group to inject thanos into the DA Group.</p></li>
+
 <li><p><strong><i> Open a Second Mimikatz Console </i></strong></li>
+
 <li><p><strong>lsadump::dcshadow /push</strong> (Pushes the changes we made with the rogue Domain Controller (us) to the actual Domain Controller).</p></li>
 </ul>
+
 <p>Thanos has now been injected into the DA Group, this can be verified by:</p>
+
 <ul>
 <li><p><strong>domain group “domain admins” /domain</strong></p></li>
 </ul>
