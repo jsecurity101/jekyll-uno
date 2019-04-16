@@ -64,7 +64,6 @@ Onto the Attack:
 <p>See that “vision” is a user in the DA group. This could be a good target. To grap the user’s ntlm hash, this command can be ran inside of <a href="https://github.com/gentilkiwi/mimikatz"><strong>Mimikatz</strong></a>:</p>
 <ul>
 <li><p><strong>lsadump::dcsync /domain:windomain.local /user:vision</strong></p></li>
-<li><p><strong>lsadump::dcsync /push</strong></p></li>
 </ul>
 <p>Users ntlm hash:</p>
 <ul>
@@ -84,8 +83,7 @@ Onto the Attack:
 <p>I want to point out, that in this attack we are modifying two things. Firstly, the computers (win10.windomain.local) attribute to classify as a Global Catalog (GC- a role given to one or more Domain Controllers in the environment so that it can store data about every object in the forest). This allows the computer to be a rogue Domain Controller and push out modifications to objects to the legitimate Domain Controller. Secondly, we are modifying Thanos’ privileges to give him DA rights.</p>
 <p>How do can this be done? By running these commands inside of <a href="https://github.com/gentilkiwi/mimikatz">Mimikatz</a>:</p>
 <ul>
-<li><p><strong>privilege::debug</strong> (Allows user to debug a process they wouldn’t otherwise have access to)</p></li>
-<li><p><strong>!+</strong> (Registers and starts a service with system level privileges)</p></li>
+<li><p><strong>!+</strong> (Registers and starts a service with SYSTEM level privileges)</p></li>
 <li><p><strong>!processtoken</strong> (Gives the System Token to Mimikatz so it has the appropriate privileges to run the following commands)</p></li>
 <li><p><strong>lsadump::dcshadow /object:thanos /attribute:primaryGroupID /value:512</strong> (This will will use the Security Identifier (512) of the DA Group to inject thanos into the DA Group.</p></li>
 <li><p><strong>lsadump::dcshadow /push</strong> (Pushes the changes we made with the rogue Domain Controller (us) to the actual Domain Controller).</p></li>
