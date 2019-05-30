@@ -14,7 +14,7 @@ Being new to AWS, I wanted to really customize my experience, as well as make my
 
 2. Inside of AWS, everytime you Stop then Start an instance the Public IP will change. Yes you can fix this by setting an Elastic IP, but I didn't want to spend the money. A free DNS would work amazing for this, which a friend of mine Ben (twitter: @UsernameIsBen) brought to my attention that DuckDNS is perfect for this. This allowed me to not have to look at the Public IP everytime I wanted to get to Guacamole, Splunk, etc. Just a nice easy use the duckdns you create, ex: logger-duckdns.org. 
 
-3. Lastly, I wanted to be able to acces my lab enviroment without 1- Transferring my logger's private key, or creating a new one for every device. 2. Downloading Remote Desktop or SSH clients on each device I want to access my lab from. This is where Apache Guacamole came in perfectly. 
+ 3. Lastly, I wanted to be able to acces my lab enviroment without 1- Transferring my logger's private key, or creating a new one for every device. 2. Downloading Remote Desktop or SSH clients on each device I want to access my lab from. This is where Apache Guacamole came in perfectly. 
 
 <strong>Note</strong> Detection Lab AWS does require that you login with SSH key's vs. username/password. I will show the difference in the configuration in Guacamole below if you have your lab set up which ever way. 
 
@@ -28,31 +28,32 @@ Guide:
 
 2.  ```sudo apt-get install libcairo2-dev libjpeg62-dev libpng12-dev libossp-uuid-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libssh-dev tomcat7 tomcat7-admin tomcat7-user```
 
-3.```wget http://sourceforge.net/projects/guacamole/files/current/source/guacamole-server-0.9.9.tar.gz``` 
 
-4. ```tar zxf guacamole-server-0.9.9.tar.gz```
+3.  ```wget http://sourceforge.net/projects/guacamole/files/current/source/guacamole-server-0.9.9.tar.gz``` 
 
-5. ```cd guacamole-server-0.9.9``` 
+4.  ```tar zxf guacamole-server-0.9.9.tar.gz```
 
-6. ```sudo ./configure```
+5.  ```cd guacamole-server-0.9.9``` 
 
-7. ```sudo make```
+6.  ```sudo ./configure```
 
-8. ```sudo make install```
+7.  ```sudo make```
 
-9. ```sudo ldconfig```
+8.  ```sudo make install```
 
-10. ```cd /var/lib/tomcat7```
+9.  ```sudo ldconfig```
 
-11. ```wget http://sourceforge.net/projects/guacamole/files/current/binary/guacamole-0.9.9.war```
+10.  ```cd /var/lib/tomcat7```
 
-12. ```mv guacamole-0.9.9.war /var/lib/tomcat7/webapps/guacamole.war```
+11.  ```wget http://sourceforge.net/projects/guacamole/files/current/binary/guacamole-0.9.9.war```
 
-13. ```mkdir /etc/guacamole```
+12.  ```mv guacamole-0.9.9.war /var/lib/tomcat7/webapps/guacamole.war```
 
-14. ```mkdir /usr/share/tomcat7/.guacamole```
+13.  ```mkdir /etc/guacamole```
 
-15. ```Create guacamole.properties in /etc/guacamole```
+14.  ```mkdir /usr/share/tomcat7/.guacamole```
+
+15.  ```Create guacamole.properties in /etc/guacamole```
 
 - Exact path: /etc/guacamole/guacamole.properties
 
@@ -70,7 +71,7 @@ Guide:
 
 
 
-16. ```ln -s /etc/guacamole/guacamole.properties /usr/share/tomcat7/.guacamole/```
+16.  ```ln -s /etc/guacamole/guacamole.properties /usr/share/tomcat7/.guacamole/```
 
 17. Create user-mapping.xml in /etc/guacamole
 
@@ -134,7 +135,7 @@ Guide:
 
 
 
-To change the password and print it in md5, command is:``` printf '%s' "password" | md5sum```
+To change the password and print it in md5, command is: ``` printf '%s' "password" | md5sum```
 
 <strong>Note:</strong> If your lab doesn't require ssh keys to log in, the logger's connection can look like below:
 
@@ -150,9 +151,9 @@ To change the password and print it in md5, command is:``` printf '%s' "password
 
 
 
-18. ```service tomcat7 start```
+18.  ```service tomcat7 start```
 
-19. ```/usr/local/sbin/guacd &```
+19.  ```/usr/local/sbin/guacd &```
 
 This starts the guacamole process, if you want this to start on boot (suggested so  you don't have to manually start everytime machine boots) do the following:
 
@@ -162,7 +163,7 @@ This starts the guacamole process, if you want this to start on boot (suggested 
 
 Add this to crontab -e 
 
- - ```@reboot /usr/local/sbin/guacd &```
+ -  ```@reboot /usr/local/sbin/guacd &```
 
 Test by going to: http://ip-address:8080/guacamole
 
@@ -177,18 +178,18 @@ Securing:
 ---
 These are some basic things you can do to lock down the Tomcat7 server. There are ALOT more things to do, these are some basic things I wanted to implement. 
 
-1. ```cd /var/lib/tomcat7/webapps```
+1.  ```cd /var/lib/tomcat7/webapps```
 
-2. ```rm -r Root/```
+2.  ```rm -r Root/```
 
-3. ```cd /etc/tomcat7```
+3.  ```cd /etc/tomcat7```
 
 3.Create keygen cert: 
-```sudo keytool -genkey -alias tomcat -keyalg RSA -keystore /etc/tomcat7/.keystore```
+ ```sudo keytool -genkey -alias tomcat -keyalg RSA -keystore /etc/tomcat7/.keystore```
 
 - Put guacadmin for all passwords
 
-3. ```nano server.xml```
+3.  ```nano server.xml```
 
 4. Change 'Connector port=8443' to:
 	
@@ -210,7 +211,7 @@ These are some basic things you can do to lock down the Tomcat7 server. There ar
 	
 Save and exit
 
-6. ```nano web.xml```
+6.  ```nano web.xml```
 
 Add following between 'web-app' & '/web-app' tags:
 
