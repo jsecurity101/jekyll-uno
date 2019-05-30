@@ -53,9 +53,9 @@ Guide:
 
   ```mkdir /usr/share/tomcat7/.guacamole```
 
-  ```Create guacamole.properties in /etc/guacamole```
+ Create guacamole.properties in /etc/guacamole
 
-- Exact path: /etc/guacamole/guacamole.properties
+```nano /etc/guacamole/guacamole.properties``` 
 
 
 
@@ -75,7 +75,7 @@ Guide:
 
  Create user-mapping.xml in /etc/guacamole
 
-- Exact path: /etc/guacamole/user-mapping.xml
+```nano /etc/guacamole/user-mapping.xml```
 
 
 		<user-mapping>
