@@ -6,7 +6,7 @@ categories: Detection
 
 Introduction:
 ---
-In this guide Apache Guacamole was built on top of Chris Long's <a href="https://github.com/clong/DetectionLab/tree/master/Terraform"><strong>Detection Lab</strong></a>. This guide will work locally, on AWS, as well if you have your own lab, depending on how your lab set up. I will discuss the direct differences between the Detection Lab, home lab, and AWS when it comes to the configurations. However this was built and centered around Detection Lab and AWS. 
+In this guide, Apache Guacamole was built on top of Chris Long's <a href="https://github.com/clong/DetectionLab/tree/master/Terraform"><strong>Detection Lab</strong></a>. This guide will work locally, on AWS, as well if you have your own lab, depending on how your lab set up. I will discuss the direct differences between the Detection Lab, home lab, and AWS when it comes to the configurations. However this was built and centered around Detection Lab and AWS. 
 
 Being new to AWS, I wanted to really customize my experience, as well as make my experience as pain free as possible. To do so, I had to answer a couple of questions:
 
