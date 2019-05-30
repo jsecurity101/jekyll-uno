@@ -210,9 +210,9 @@ Put guacadmin for all passwords
 Save and exit
 
 6. nano web.xml
-Add following between '<web-app>' & '</web-app>' tags:
+Add following between 'web-app' & '/web-app' tags:
 
-	<strong><i>
+	
 
 		<security-constraint>
 		<web-resource-collection>
@@ -224,10 +224,10 @@ Add following between '<web-app>' & '</web-app>' tags:
 		</user-data-constraint>
 		</security-constraint>
 
-	</strong></i>
+	
 
 7. Between <strong><session-config></strong> change to look like this:
-	<strong><i>
+	
 
 		   <session-timeout>30</session-timeout>
 			  <cookie-config>
@@ -235,10 +235,6 @@ Add following between '<web-app>' & '</web-app>' tags:
 			  <secure>true</secure>
 			  </cookie-config>
 		      </session-config>
-
-	</strong></i>
-
-       
 
 
 Save and Close
