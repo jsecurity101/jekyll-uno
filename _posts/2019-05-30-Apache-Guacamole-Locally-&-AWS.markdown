@@ -79,12 +79,10 @@ Guide:
 
 
 		<user-mapping>
-
-
-			<authorize
-				username="guacadmin" <!--Login Username-->
-				password="5cbd438413e8e3ca0e14e200fde621a9" <!--Login password, if you want to change this, command is below-->
-				encoding="md5">
+		
+				<authorize username="guacadmin"
+                        password="5cbd438413e8e3ca0e14e200fde621a9"
+                        encoding="md5">
 
 
 				<connection name="logger">
