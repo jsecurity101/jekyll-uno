@@ -56,7 +56,7 @@ Guide:
 
 Exact path: /etc/guacamole/guacamole.properties
 
-<strong><i>
+
 
         guacd-hostname: localhost
         
@@ -68,7 +68,7 @@ Exact path: /etc/guacamole/guacamole.properties
         
         basic-user-mapping: /etc/guacamole/user-mapping.xml
 
-</strong></i>
+
 
 16. ln -s /etc/guacamole/guacamole.properties /usr/share/tomcat7/.guacamole/
 
