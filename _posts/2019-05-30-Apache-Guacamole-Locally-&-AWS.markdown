@@ -175,6 +175,9 @@ Test by going to: http://ip-address:8080/guacamole
 
 <strong>Login guacadmin:guacadmin</strong> 
 
+You should then see the connections page:
+
+![security-groups](/images/AWS/connections.PNG)
 
 
 Securing:
@@ -235,17 +238,24 @@ Add following between 'web-app' & '/web-app' tags:
   Between <strong>session-config</strong> change to look like this:
 	
 
-		   <session-timeout>30</session-timeout>
-			  <cookie-config>
-			  <http-only>true</http-only>
-			  <secure>true</secure>
-			  </cookie-config>
-		      </session-config>
+		<session-config>
+			<session-timeout>30</session-timeout>
+			<cookie-config>
+			<http-only>true</http-only>
+			<secure>true</secure>
+			</cookie-config>
+		    </session-config>
 
 
  Save and Close
 
   ```sudo chmod 600 /etc/guacamole/user-mapping.xml```
+  
+  ```sudo service tomcat7 start```
+  
+  HTTP will now forward to HTTPS and will look similar to this:
+  
+  ![security-groups](/images/AWS/https.PNG)
 
 Conclusion:
 ---
