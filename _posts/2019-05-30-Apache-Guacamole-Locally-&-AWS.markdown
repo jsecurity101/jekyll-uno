@@ -26,7 +26,7 @@ Guide:
 
 ![security-groups](/images/AWS/securitygroups.PNG)
 
-2. ```sudo apt-get install libcairo2-dev libjpeg62-dev libpng12-dev libossp-uuid-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libssh-dev tomcat7 tomcat7-admin tomcat7-user```
+2.  ```sudo apt-get install libcairo2-dev libjpeg62-dev libpng12-dev libossp-uuid-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libssh-dev tomcat7 tomcat7-admin tomcat7-user```
 
 3.```wget http://sourceforge.net/projects/guacamole/files/current/source/guacamole-server-0.9.9.tar.gz``` 
 
