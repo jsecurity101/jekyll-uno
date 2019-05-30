@@ -158,12 +158,15 @@ To change the password and print it in md5, command is: ``` printf '%s' "passwor
 This starts the guacamole process, if you want this to start on boot (suggested so  you don't have to manually start everytime machine boots) do the following:
 
   ```sudo mkdir /etc/guacamole/guacd/```
+  
+ 
   ```sudo nano /etc/guacamole/guacd/guac-start.sh```
+  
   ```crontab -e ```
 
 Add this to crontab -e 
 
- -  ```@reboot /usr/local/sbin/guacd &```
+   ```@reboot /usr/local/sbin/guacd &```
 
 Test by going to: http://ip-address:8080/guacamole
 
