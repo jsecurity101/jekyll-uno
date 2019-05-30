@@ -22,38 +22,38 @@ Guide:
 ---
 <strong>Note</strong> This guide is for Ubuntu 16.04, if you have 18.04 I have a small write-up for that as well, just contact me. There are also other guides out there was well. 
 
-1. First thing you will want to do is add yor Public IP to the logger's security group for port 8080 (if you want HTTP), port 8443 (if you want HTTPS), port 8080 & 8443 (HTTP & HTTPS). At the bottom of this guide in the "Securing" Section I do forward 8080 to 8443, so I suggest either just putting 8443, or 8080 & 8443 if you want to see the redirect process. 
+ First thing you will want to do is add yor Public IP to the logger's security group for port 8080 (if you want HTTP), port 8443 (if you want HTTPS), port 8080 & 8443 (HTTP & HTTPS). At the bottom of this guide in the "Securing" Section I do forward 8080 to 8443, so I suggest either just putting 8443, or 8080 & 8443 if you want to see the redirect process. 
 
 ![security-groups](/images/AWS/securitygroups.PNG)
 
-2.  ```sudo apt-get install libcairo2-dev libjpeg62-dev libpng12-dev libossp-uuid-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libssh-dev tomcat7 tomcat7-admin tomcat7-user```
+  ```sudo apt-get install libcairo2-dev libjpeg62-dev libpng12-dev libossp-uuid-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libssh-dev tomcat7 tomcat7-admin tomcat7-user```
 
 
-3.  ```wget http://sourceforge.net/projects/guacamole/files/current/source/guacamole-server-0.9.9.tar.gz``` 
+  ```wget http://sourceforge.net/projects/guacamole/files/current/source/guacamole-server-0.9.9.tar.gz``` 
 
-4.  ```tar zxf guacamole-server-0.9.9.tar.gz```
+```tar zxf guacamole-server-0.9.9.tar.gz```
 
-5.  ```cd guacamole-server-0.9.9``` 
+  ```cd guacamole-server-0.9.9``` 
 
-6.  ```sudo ./configure```
+  ```sudo ./configure```
 
-7.  ```sudo make```
+  ```sudo make```
 
-8.  ```sudo make install```
+  ```sudo make install```
 
-9.  ```sudo ldconfig```
+  ```sudo ldconfig```
 
-10.  ```cd /var/lib/tomcat7```
+  ```cd /var/lib/tomcat7```
 
-11.  ```wget http://sourceforge.net/projects/guacamole/files/current/binary/guacamole-0.9.9.war```
+  ```wget http://sourceforge.net/projects/guacamole/files/current/binary/guacamole-0.9.9.war```
 
-12.  ```mv guacamole-0.9.9.war /var/lib/tomcat7/webapps/guacamole.war```
+  ```mv guacamole-0.9.9.war /var/lib/tomcat7/webapps/guacamole.war```
 
-13.  ```mkdir /etc/guacamole```
+  ```mkdir /etc/guacamole```
 
-14.  ```mkdir /usr/share/tomcat7/.guacamole```
+  ```mkdir /usr/share/tomcat7/.guacamole```
 
-15.  ```Create guacamole.properties in /etc/guacamole```
+  ```Create guacamole.properties in /etc/guacamole```
 
 - Exact path: /etc/guacamole/guacamole.properties
 
@@ -71,9 +71,9 @@ Guide:
 
 
 
-16.  ```ln -s /etc/guacamole/guacamole.properties /usr/share/tomcat7/.guacamole/```
+  ```ln -s /etc/guacamole/guacamole.properties /usr/share/tomcat7/.guacamole/```
 
-17. Create user-mapping.xml in /etc/guacamole
+ Create user-mapping.xml in /etc/guacamole
 
 - Exact path: /etc/guacamole/user-mapping.xml
 
@@ -151,9 +151,9 @@ To change the password and print it in md5, command is: ``` printf '%s' "passwor
 
 
 
-18.  ```service tomcat7 start```
+  ```service tomcat7 start```
 
-19.  ```/usr/local/sbin/guacd &```
+  ```/usr/local/sbin/guacd &```
 
 This starts the guacamole process, if you want this to start on boot (suggested so  you don't have to manually start everytime machine boots) do the following:
 
@@ -178,20 +178,20 @@ Securing:
 ---
 These are some basic things you can do to lock down the Tomcat7 server. There are ALOT more things to do, these are some basic things I wanted to implement. 
 
-1.  ```cd /var/lib/tomcat7/webapps```
+ ```cd /var/lib/tomcat7/webapps```
 
-2.  ```rm -r Root/```
+  ```rm -r Root/```
 
-3.  ```cd /etc/tomcat7```
+  ```cd /etc/tomcat7```
 
-3.Create keygen cert: 
+Create keygen cert: 
  ```sudo keytool -genkey -alias tomcat -keyalg RSA -keystore /etc/tomcat7/.keystore```
 
 - Put guacadmin for all passwords
 
-3.  ```nano server.xml```
+  ```nano server.xml```
 
-4. Change 'Connector port=8443' to:
+ Change 'Connector port=8443' to:
 	
 
 		  <Connector SSLEnabled="true" acceptCount="100" clientAuth="false"
@@ -202,7 +202,7 @@ These are some basic things you can do to lock down the Tomcat7 server. There ar
 
 	
 
-5. Change 'Server port' to:
+ Change 'Server port' to:
 
 	
 
@@ -211,7 +211,7 @@ These are some basic things you can do to lock down the Tomcat7 server. There ar
 	
 Save and exit
 
-6.  ```nano web.xml```
+  ```nano web.xml```
 
 Add following between 'web-app' & '/web-app' tags:
 
@@ -229,7 +229,7 @@ Add following between 'web-app' & '/web-app' tags:
 
 	
 
-7.  Between <strong>session-config</strong> change to look like this:
+  Between <strong>session-config</strong> change to look like this:
 	
 
 		   <session-timeout>30</session-timeout>
@@ -240,9 +240,9 @@ Add following between 'web-app' & '/web-app' tags:
 		      </session-config>
 
 
-8. Save and Close
+ Save and Close
 
-9.  ```chmod 600 /etc/guacamole/user-mapping.xml```
+  ```chmod 600 /etc/guacamole/user-mapping.xml```
 
 Conclusion:
 ---
