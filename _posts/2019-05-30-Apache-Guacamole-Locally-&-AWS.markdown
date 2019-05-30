@@ -259,6 +259,8 @@ Add following between 'web-app' & '/web-app' tags:
 
 Conclusion:
 ---
+Why is this helpful? If you are someone that is constantly on the go, and don't want to transfer ssh-keys/download RPC/Putty/or ssh everytime you want access to your lab, this helps out. You can add your Public IP to the Security Groups in AWS and just access each box from within a browser of your choosing. 
+
 I wanted to give the community a simple guide to follow when it comes to Apache Guacamole, especially when it comes to AWS. I hope you enjoy! If you have any questions or corrections never hesitate to contact me! :) 
 
 References:
