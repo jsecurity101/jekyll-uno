@@ -163,11 +163,6 @@ Guide:
   ```/usr/local/sbin/guacd &```
 
 This starts the guacamole process, if you want this to start on boot (suggested so  you don't have to manually start everytime machine boots) do the following:
-
-  ```sudo mkdir /etc/guacamole/guacd/```
-  
- 
-  ```sudo nano /etc/guacamole/guacd/guac-start.sh```
   
   ```crontab -e ```
 
