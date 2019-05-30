@@ -240,7 +240,7 @@ Add following between 'web-app' & '/web-app' tags:
 Save and Close
 
 
-8. chmod 600 /etc/guacamole/user-mapping.xml
+8. ```chmod 600 /etc/guacamole/user-mapping.xml```
 
 Conclusion:
 ---
@@ -258,5 +258,7 @@ https://github.com/clong/DetectionLab/tree/master/Terraform
 https://www.duckdns.org/
 
 https://clo.ng/blog/algo_vpn/
+
+
 
 
