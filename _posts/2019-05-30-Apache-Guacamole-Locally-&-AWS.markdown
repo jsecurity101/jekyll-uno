@@ -135,7 +135,14 @@ Guide:
 
 
 
-To change the password and print it in md5, command is: ``` printf '%s' "password" | md5sum```
+<strong> Note 1:</strong>To change the password and print it in md5, command is: ``` printf '%s' "password" | md5sum```
+
+<strong> Note 2:</strong> When inserting private key, header/footer of key needs to be included:
+
+```-----BEGIN RSA PRIVATE KEY-----```
+
+```-----END RSA PRIVATE KEY-----```
+
 
 <strong>Note:</strong> If your lab doesn't require ssh keys to log in, the logger's connection can look like below:
 
