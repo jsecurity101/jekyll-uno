@@ -26,33 +26,33 @@ Guide:
 
 ![security-groups](/images/AWS/securitygroups.PNG)
 
-2. sudo apt-get install libcairo2-dev libjpeg62-dev libpng12-dev libossp-uuid-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libssh-dev tomcat7 tomcat7-admin tomcat7-user 
+	2. sudo apt-get install libcairo2-dev libjpeg62-dev libpng12-dev libossp-uuid-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libssh-dev tomcat7 tomcat7-admin tomcat7-user 
 
-3. wget http://sourceforge.net/projects/guacamole/files/current/source/guacamole-server-0.9.9.tar.gz 
+	3. wget http://sourceforge.net/projects/guacamole/files/current/source/guacamole-server-0.9.9.tar.gz 
 
-4. tar zxf guacamole-server-0.9.9.tar.gz
+	4. tar zxf guacamole-server-0.9.9.tar.gz
 
-5. cd guacamole-server-0.9.9 
+	5. cd guacamole-server-0.9.9 
 
-6. sudo ./configure
+	6. sudo ./configure
 
-7. sudo make
+	7. sudo make
 
-8. sudo make install
+	8. sudo make install
 
-9. sudo ldconfig
+	9. sudo ldconfig
 
-10. cd /var/lib/tomcat7
+	10. cd /var/lib/tomcat7
 
-11. wget http://sourceforge.net/projects/guacamole/files/current/binary/guacamole-0.9.9.war
+	11. wget http://sourceforge.net/projects/guacamole/files/current/binary/guacamole-0.9.9.war
 
-12. mv guacamole-0.9.9.war /var/lib/tomcat7/webapps/guacamole.war
+	12. mv guacamole-0.9.9.war /var/lib/tomcat7/webapps/guacamole.war
 
-13. mkdir /etc/guacamole
+	13. mkdir /etc/guacamole
 
-14. mkdir /usr/share/tomcat7/.guacamole
+	14. mkdir /usr/share/tomcat7/.guacamole
 
-15. Create guacamole.properties in /etc/guacamole
+	15. Create guacamole.properties in /etc/guacamole
 
 Exact path: /etc/guacamole/guacamole.properties
 
@@ -70,74 +70,72 @@ Exact path: /etc/guacamole/guacamole.properties
 
 
 
-16. ln -s /etc/guacamole/guacamole.properties /usr/share/tomcat7/.guacamole/
+	16. ln -s /etc/guacamole/guacamole.properties /usr/share/tomcat7/.guacamole/
 
 17. Create user-mapping.xml in /etc/guacamole
 Exact path: /etc/guacamole/user-mapping.xml
 
-<strong><i>
+
+	<user-mapping>
+
+		<authorize
+			username="guacadmin" <!--Login Username-->
+			password="5cbd438413e8e3ca0e14e200fde621a9" <!--Login password, if you want to change this, command is below-->
+			encoding="md5">
+
+			<connection name="logger">
+				<protocol>ssh</protocol>
+				<param name="hostname">192.168.38.105</param>
+				<param name="port">22</param>
+				<param name="username">vagrant</param>
+						  <param name="private-key">privatekey</param>
+			</connection>
+
+			<connection name="wef">
+				<protocol>rdp</protocol>
+				<param name="hostname">192.168.38.103</param>
+				<param name="port">3389</param>
+				<param name="username">vagrant</param>
+				<param name="password">vagrant</param>
+				<param name="security">nla</param>
+				<param name="ignore-cert">true</param>
+			</connection>
 
 
-<user-mapping>
-
-        <authorize
-                username="guacadmin" <!--Login Username-->
-                password="5cbd438413e8e3ca0e14e200fde621a9" <!--Login password, if you want to change this, command is below-->
-                encoding="md5">
-                
-                <connection name="logger">
-                        <protocol>ssh</protocol>
-                        <param name="hostname">192.168.38.105</param>
-                        <param name="port">22</param>
-                        <param name="username">vagrant</param>
-			                  <param name="private-key">privatekey</param>
-                </connection>
-                
-                <connection name="wef">
-                        <protocol>rdp</protocol>
-                        <param name="hostname">192.168.38.103</param>
-                        <param name="port">3389</param>
-                        <param name="username">vagrant</param>
-                        <param name="password">vagrant</param>
-                        <param name="security">nla</param>
-                        <param name="ignore-cert">true</param>
-                </connection>
-
-
-                 <connection name="win10">
-                        <protocol>rdp</protocol>
-                        <param name="hostname">192.168.38.104</param>
-                        <param name="port">3389</param>
-                        <param name="username">vagrant</param>
-                        <param name="password">vagrant</param>
-                        <param name="security">nla</param>
-                        <param name="ignore-cert">true</param>
-                </connection>
+			 <connection name="win10">
+				<protocol>rdp</protocol>
+				<param name="hostname">192.168.38.104</param>
+				<param name="port">3389</param>
+				<param name="username">vagrant</param>
+				<param name="password">vagrant</param>
+				<param name="security">nla</param>
+				<param name="ignore-cert">true</param>
+			</connection>
 
 
 
-                <connection name="dc">
-                        <protocol>rdp</protocol>
-                        <param name="hostname">192.168.38.102</param>
-                        <param name="port">3389</param>
-                        <param name="username">vagrant</param>
-                        <param name="password">vagrant</param>
-                        <param name="security">nla</param>
-                        <param name="ignore-cert">true</param>
-                </connection>
-                
-        </authorize>
-        
-</user-mapping>
+			<connection name="dc">
+				<protocol>rdp</protocol>
+				<param name="hostname">192.168.38.102</param>
+				<param name="port">3389</param>
+				<param name="username">vagrant</param>
+				<param name="password">vagrant</param>
+				<param name="security">nla</param>
+				<param name="ignore-cert">true</param>
+			</connection>
+
+		</authorize>
+
+	</user-mapping>
 
 
-</strong></i>
+
 
 To change the password and print it in md5, command is:<strong><i> printf '%s' "password" | md5sum</i></strong>
 
 <strong>Note:</strong> If your lab doesn't require ssh keys to log in, the logger's connection can look like below:
 
-<strong><i>
+
 
                 <connection name="logger">
                         <protocol>ssh</protocol>
@@ -146,23 +144,22 @@ To change the password and print it in md5, command is:<strong><i> printf '%s' "
                         <param name="username">vagrant</param>
                 </connection>
 
-</strong></i>
 
-<strong>Note:</strong>
 
-18. service tomcat7 start
 
-19. /usr/local/sbin/guacd &
+	18. service tomcat7 start
+
+	19. /usr/local/sbin/guacd &
 
 This starts the guacamole process, if you want this to start on boot (suggested so  you don't have to manually start everytime machine boots) do the following:
 
-- sudo mkdir /etc/guacamole/guacd/
-- sudo nano /etc/guacamole/guacd/guac-start.sh
-- crontab -e 
+	 sudo mkdir /etc/guacamole/guacd/
+	 sudo nano /etc/guacamole/guacd/guac-start.sh
+	 crontab -e 
 
 Add this to crontab -e 
 
-- @reboot /usr/local/sbin/guacd &
+	 @reboot /usr/local/sbin/guacd &
 
 Test by going to: http://ip-address:8080/guacamole
 
@@ -178,66 +175,66 @@ Securing:
 ---
 These are some basic things you can do to lock down the Tomcat7 server. There are ALOT more things to do, these are some basic things I wanted to implement. 
 
-1. cd /var/lib/tomcat7/webapps
+	1. cd /var/lib/tomcat7/webapps
 
-2. rm -r Root/
+	2. rm -r Root/
 
-3. cd /etc/tomcat7
+	3. cd /etc/tomcat7
 
-3.Create keygen cert: sudo keytool -genkey -alias tomcat -keyalg RSA -keystore /etc/tomcat7/.keystore
+	3.Create keygen cert: sudo keytool -genkey -alias tomcat -keyalg RSA -keystore /etc/tomcat7/.keystore
 
-Put guacadmin for all passwords
- 
-3. nano server.xml
+	Put guacadmin for all passwords
 
-4. Change 'Connector port=8443' to:
-<strong><i>
+	3. nano server.xml
 
-          <Connector SSLEnabled="true" acceptCount="100" clientAuth="false"
-          disableUploadTimeout="true" enableLookups="false" maxThreads="25"
-          port="8443" keystoreFile="/etc/tomcat7/.keystore" keystorePass="guacadmin"
-          protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="https"
-          secure="true" sslProtocol="TLS" />
-    
-</strong></i>
+	4. Change 'Connector port=8443' to:
+	<strong><i>
 
-5. Change 'Server port' to:
+		  <Connector SSLEnabled="true" acceptCount="100" clientAuth="false"
+		  disableUploadTimeout="true" enableLookups="false" maxThreads="25"
+		  port="8443" keystoreFile="/etc/tomcat7/.keystore" keystorePass="guacadmin"
+		  protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="https"
+		  secure="true" sslProtocol="TLS" />
 
-<strong><i>
+	</strong></i>
 
-        <Server port="8789" shutdown="THISPASSWORDISTOOLONGFORYOUTOTRYTOGUESS1234567890">
+	5. Change 'Server port' to:
 
-</strong></i>
-Save and exit
+	<strong><i>
 
-6. nano web.xml
-Add following between '<web-app>' & '</web-app>' tags:
+		<Server port="8789" shutdown="THISPASSWORDISTOOLONGFORYOUTOTRYTOGUESS1234567890">
 
-<strong><i>
+	</strong></i>
+	Save and exit
 
-        <security-constraint>
-        <web-resource-collection>
-        <web-resource-name>Protected Context</web-resource-name>
-        <url-pattern>/*</url-pattern>
-        </web-resource-collection>
-        <user-data-constraint>
-        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
-        </security-constraint>
+	6. nano web.xml
+	Add following between '<web-app>' & '</web-app>' tags:
 
-</strong></i>
+	<strong><i>
 
-7. Between <strong><session-config></strong> change to look like this:
-<strong><i>
+		<security-constraint>
+		<web-resource-collection>
+		<web-resource-name>Protected Context</web-resource-name>
+		<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+		<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+		</security-constraint>
 
-           <session-timeout>30</session-timeout>
-                  <cookie-config>
-                  <http-only>true</http-only>
-                  <secure>true</secure>
-                  </cookie-config>
-              </session-config>
+	</strong></i>
 
-</strong></i>
+	7. Between <strong><session-config></strong> change to look like this:
+	<strong><i>
+
+		   <session-timeout>30</session-timeout>
+			  <cookie-config>
+			  <http-only>true</http-only>
+			  <secure>true</secure>
+			  </cookie-config>
+		      </session-config>
+
+	</strong></i>
 
        
 
@@ -245,7 +242,7 @@ Add following between '<web-app>' & '</web-app>' tags:
 Save and Close
 
 
-8. chmod 600 /etc/guacamole/user-mapping.xml
+	8. chmod 600 /etc/guacamole/user-mapping.xml
 
 Conclusion:
 ---
