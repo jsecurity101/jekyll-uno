@@ -45,17 +45,17 @@ Guide:
 
   ```cd /var/lib/tomcat7```
 
-  ```wget http://sourceforge.net/projects/guacamole/files/current/binary/guacamole-0.9.9.war```
+  ```sudo wget http://sourceforge.net/projects/guacamole/files/current/binary/guacamole-0.9.9.war```
 
-  ```mv guacamole-0.9.9.war /var/lib/tomcat7/webapps/guacamole.war```
+  ```sudo mv guacamole-0.9.9.war /var/lib/tomcat7/webapps/guacamole.war```
 
-  ```mkdir /etc/guacamole```
+  ```sudo mkdir /etc/guacamole```
 
-  ```mkdir /usr/share/tomcat7/.guacamole```
+  ```sudo mkdir /usr/share/tomcat7/.guacamole```
 
  Create guacamole.properties in /etc/guacamole
 
-```nano /etc/guacamole/guacamole.properties``` 
+```sudo nano /etc/guacamole/guacamole.properties``` 
 
 
 
@@ -71,11 +71,11 @@ Guide:
 
 
 
-  ```ln -s /etc/guacamole/guacamole.properties /usr/share/tomcat7/.guacamole/```
+  ```sudo ln -s /etc/guacamole/guacamole.properties /usr/share/tomcat7/.guacamole/```
 
  Create user-mapping.xml in /etc/guacamole
 
-```nano /etc/guacamole/user-mapping.xml```
+```sudo nano /etc/guacamole/user-mapping.xml```
 
 
 		<user-mapping>
@@ -151,7 +151,7 @@ To change the password and print it in md5, command is: ``` printf '%s' "passwor
 
 
 
-  ```service tomcat7 start```
+  ```sudo service tomcat7 start```
 
   ```/usr/local/sbin/guacd &```
 
@@ -183,7 +183,7 @@ These are some basic things you can do to lock down the Tomcat7 server. There ar
 
  ```cd /var/lib/tomcat7/webapps```
 
-  ```rm -r Root/```
+  ```sudo rm -r Root/```
 
   ```cd /etc/tomcat7```
 
@@ -192,7 +192,7 @@ Create keygen cert:
 
 - Put guacadmin for all passwords
 
-  ```nano server.xml```
+  ```sudo nano server.xml```
 
  Change 'Connector port=8443' to:
 	
@@ -214,7 +214,7 @@ Create keygen cert:
 	
 Save and exit
 
-  ```nano web.xml```
+  ```sudo nano web.xml```
 
 Add following between 'web-app' & '/web-app' tags:
 
@@ -245,7 +245,7 @@ Add following between 'web-app' & '/web-app' tags:
 
  Save and Close
 
-  ```chmod 600 /etc/guacamole/user-mapping.xml```
+  ```sudo chmod 600 /etc/guacamole/user-mapping.xml```
 
 Conclusion:
 ---
