@@ -6,11 +6,11 @@ categories: Detection
 
 Introduction:
 ---
-Apache Guacamole was built on top of Chris Long's <a href="https://github.com/clong/DetectionLab/tree/master/Terraform"><strong>Detection Lab</strong></a>. This guide will work locally and on AWS as well if you have your own lab, depending on how you have it set up. I will discuss the direct differences between the Detection Lab, home lab, and AWS when it comes to the configurations. However this was built and centered around Detection Lab and AWS. 
+In this guide Apache Guacamole was built on top of Chris Long's <a href="https://github.com/clong/DetectionLab/tree/master/Terraform"><strong>Detection Lab</strong></a>. This guide will work locally, on AWS, as well if you have your own lab, depending on how your lab set up. I will discuss the direct differences between the Detection Lab, home lab, and AWS when it comes to the configurations. However this was built and centered around Detection Lab and AWS. 
 
-Being new to AWS, I wanted to really customize my experience, as well as make my experience as pain free as possible. . To do so, I had to answer a couple of questions:
+Being new to AWS, I wanted to really customize my experience, as well as make my experience as pain free as possible. To do so, I had to answer a couple of questions:
 
-1. How can I get access to my lab, without having to look up my public ip and edit my security groups everytime moved between devices? This was done by setting up a VPN, Algo/Wireguard specficially. There are some really great guides on this, but Chris Long has one here - https://clo.ng/blog/algo_vpn/
+1. How can I get access to my lab, without having to look up my Public IP and edit my security groups everytime moved between devices? This was done by setting up a VPN, Algo/Wireguard specficially. There are some really great guides on this, but Chris Long has one here - https://clo.ng/blog/algo_vpn/
 
 2. Inside of AWS, everytime you Stop then Start an instance the Public IP will change. Yes you can fix this by setting an Elastic IP, but I didn't want to spend the money. A free DNS would work amazing for this, which a friend of mine Ben (twitter: @UsernameIsBen) brought to my attention that DuckDNS is perfect for this. This allowed me to not have to look at the Public IP everytime I wanted to get to Guacamole, Splunk, etc. Just a nice easy use the duckdns you create, ex: logger-duckdns.org. 
 
