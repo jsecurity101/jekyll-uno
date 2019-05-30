@@ -7,7 +7,7 @@ categories: Detection
 Introduction:
 ---
 <p>As an adversary, one of the goals is to capture Domain Admin (DA) credentials, change/modify objects inside of Active Directory, and to be able to evade any detection systems that an environment may have in place.</p>
-<p>One way you can capture DA credentials is through an attack technique called “DCSync”. DCSync is an attack technique that many security professionals, like <a href="https://adsecurity.org/?p=1729"><strong>Sean Metcalf</strong></a> and <a href="http://www.harmj0y.net/blog/redteaming/mimikatz-and-dcsync-and-extrasids-oh-my/"><strong>Will Schroeder</strong></a> have talked about. Once an adversary has DA privileges, they can then perform a defensive evasion technique attack, by injecting objects into the Active Directory Infrastructure. This attack technique is called “DCShadow”. There is a great presentation on DCShadow that was done by <a href="https://www.dcshadow.com/"><strong>Benjamin Delpy and Vincent Letoux</strong></a> which I highly suggest going to, to read and watch.</p>
+<p>One way you can capture DA credentials is through an attack technique called “DCSync”. DCSync is an attack technique that many security professionals, like <a href="https://adsecurity.org/?p=1729"><strong>Sean Metcalf</strong></a> and <a href="http://www.harmj0y.net/blog/redteaming/mimikatz-and-dcsync-and-extrasids-oh-my/"><strong>Will Schroeder</strong></a> have talked about. Once an adversary has DA privileges, they can then perform a defensive evasion technique attack, by injecting objects into the Active Directory Infrastructure. This attack technique is called “DCShadow”. There is a great presentation on DCShadow that was done by <a href="https://www.dcshadow.com/"><strong>Benjamin Delpy and Vincent Le Toux</strong></a> which I highly suggest going to, to read and watch.</p>
 <p>DCSync and DCShadow sound very similar and could be confusing to understand the differences if not explained. I am going to talk about the differences in DCSync and DCShadow when it comes to their functionality as an attack technique, along with differences when it comes to Indicators of Compromise (IOC) and hunting/detecting these two techniques.</p>
 <p>When running these two attacks I wanted to have some fun with it, as I am a big Marvel fan, let me know if you catch any of the references and WHY some of the users were used. I will explain at the end ☺</p>
 
@@ -56,15 +56,16 @@ Onto the Attack:
 <a href="https://jsecurity101.tinytake.com/sf/MzQ1NjQzNV8xMDM1NTA1Mg">![dcsync](/images/DCSync-vs-DCShadow/DCSync.PNG)</a>
 
 <p>Let’s take a closer look and talk about what is going on during the DCSync attack and go over why I demonstrated the DCSync first along with the privileges used to perform this attack:</p>
-<p>An adversary has enumerated the user: ironman@windomain.loca, which is in the Administrators Group, what does this mean? This user has full control over the Domain Controller(s) in this domain. BUT we want Domain Admin (DA) so the adversary can have control over the whole domain.</p>
+<p>An adversary has enumerated the user: ironman@windomain.local, which is in the Administrators Group, what does this mean? This user has full control over the Domain Controller(s) in this domain. BUT we want Domain Admin (DA) so the adversary can have control over the whole domain.</p>
 <p>A next step might be to check to see who is in the DA group, so we can target said user. To check this, the command ran was:</p>
 <ul>
 <li><p><strong>domain groups “domain admins” /domain</strong></p></li>
 </ul>
 <p>See that “vision” is a user in the DA group. This could be a good target. To grap the user’s ntlm hash, this command can be ran inside of <a href="https://github.com/gentilkiwi/mimikatz"><strong>Mimikatz</strong></a>:</p>
+
+<p><strong><i> Open Mimikatz Console </i></strong></p>
 <ul>
 <li><p><strong>lsadump::dcsync /domain:windomain.local /user:vision</strong></p></li>
-<li><p><strong>lsadump::dcsync /push</strong></p></li>
 </ul>
 <p>Users ntlm hash:</p>
 <ul>
@@ -78,16 +79,22 @@ Onto the Attack:
 
 <p><strong>DCShadow:</strong></p>
 
-<a href="https://jsecurity101.tinytake.com/sf/MzQ1NjczOF8xMDM1NTk4NQ">![dcsync](/images/DCSync-vs-DCShadow/DCShadow.PNG)</a>
+<a href="https://jsecurity101.tinytake.com/sf/MzQ2NDUzOF8xMDM4MzU3MQ">![dcshadow](/images/DCSync-vs-DCShadow/DCShadow.PNG)</a>
 
 <p>As shown in the video, the user logged in is: vision@windomain.local (member of the Domain Administrator’s Group). The adversary wants to evade any detection or hunting that is currently being done due to logs that have propagated (which I show below). Great way to do so is to inject a user into the DA Group, then use that user. Say there was a user in the domain named: thanos@windomain.local. Sounds like a perfect fit, since historically Vision practically gave Thanos the last infinity stone, making him all powerful.</p>
 <p>I want to point out, that in this attack we are modifying two things. Firstly, the computers (win10.windomain.local) attribute to classify as a Global Catalog (GC- a role given to one or more Domain Controllers in the environment so that it can store data about every object in the forest). This allows the computer to be a rogue Domain Controller and push out modifications to objects to the legitimate Domain Controller. Secondly, we are modifying Thanos’ privileges to give him DA rights.</p>
 <p>How do can this be done? By running these commands inside of <a href="https://github.com/gentilkiwi/mimikatz">Mimikatz</a>:</p>
+
+<p><strong><i> Open Mimikatz Console </i></strong></p>
 <ul>
-<li><p><strong>privilege::debug</strong> (Allows user to debug a process they wouldn’t otherwise have access to)</p></li>
-<li><p><strong>!+</strong> (Registers and starts a service with system level privileges)</p></li>
+<li><p><strong>!+</strong> (Registers and starts a service with SYSTEM level privileges)</p></li>
+
 <li><p><strong>!processtoken</strong> (Gives the System Token to Mimikatz so it has the appropriate privileges to run the following commands)</p></li>
+
 <li><p><strong>lsadump::dcshadow /object:thanos /attribute:primaryGroupID /value:512</strong> (This will will use the Security Identifier (512) of the DA Group to inject thanos into the DA Group.</p></li>
+</ul>
+<p><strong><i> Open a second Mimikatz Console </i></strong></p>
+<ul>
 <li><p><strong>lsadump::dcshadow /push</strong> (Pushes the changes we made with the rogue Domain Controller (us) to the actual Domain Controller).</p></li>
 </ul>
 <p>Thanos has now been injected into the DA Group, this can be verified by:</p>
@@ -95,7 +102,10 @@ Onto the Attack:
 <li><p><strong>domain group “domain admins” /domain</strong></p></li>
 </ul>
 
+
 ![thanos](/images/DCSync-vs-DCShadow/thanos-gif.gif)
+
+**Note** You could have two seperate Mimikatz Consoles opened at the same time to run this attack. Commands are the same, but before the <i> lsadump::dcshadow /push </i> you would need to run <i> privilege::debug </i> to give the subprocess SYSTEM level privileges.
 
 Onto the Hunt (the best part):
 ---
@@ -130,7 +140,7 @@ Onto the Hunt (the best part):
 
 ![DCSync-DCShadow](/images/DCSync-vs-DCShadow/dsuapi.png)
 
-<p>DCSync is easier to detect once we look at the network. You see these different directory service operations: DsGetDomainControllerInfo, DsCrackNames, DsGetNChanges. As Sean Metcalf explains in his <a href="https://adsecurity.org/?p=1729">post</a>, a way to detect bad activity is to configure the IDS to trigger when you DsGetNChanges request originates from a non-Domain Controllers IP address.</p>
+<p>DCSync is easier to detect once we look at the network. You see these different directory service operations: DsGetDomainControllerInfo, DsCrackNames, DsGetNChanges. As Sean Metcalf explains in his <a href="https://adsecurity.org/?p=1729">post</a>, a way to detect bad activity is to configure the IDS to trigger when you DsGetNCChanges request originates from a non-Domain Controllers IP address.</p>
 <p>Here is another an example of what dce_rpc.log in BRO will look like as well:</p>
 
 ![DCSync-DCShadow](/images/DCSync-vs-DCShadow/bro-dcsync.png)
