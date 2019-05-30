@@ -92,7 +92,7 @@ Guide:
 					<param name="hostname">192.168.38.105</param>
 					<param name="port">22</param>
 					<param name="username">vagrant</param>
-							  <param name="private-key">privatekey</param>
+					<param name="private-key">privatekey</param>
 				</connection>
 
 				<connection name="wef">
