@@ -226,7 +226,7 @@ Add following between 'web-app' & '/web-app' tags:
 
 	
 
-7. Between <strong><session-config></strong> change to look like this:
+7. Between <strong>session-config</strong> change to look like this:
 	
 
 		   <session-timeout>30</session-timeout>
@@ -240,7 +240,7 @@ Add following between 'web-app' & '/web-app' tags:
 Save and Close
 
 
-	8. chmod 600 /etc/guacamole/user-mapping.xml
+8. chmod 600 /etc/guacamole/user-mapping.xml
 
 Conclusion:
 ---
