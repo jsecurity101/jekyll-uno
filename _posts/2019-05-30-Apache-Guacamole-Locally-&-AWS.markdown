@@ -186,7 +186,7 @@ These are some basic things you can do to lock down the Tomcat7 server. There ar
 
  ```cd /var/lib/tomcat7/webapps```
 
-  ```sudo rm -r Root/```
+  ```sudo rm -r ROOT/```
 
   ```cd /etc/tomcat7```
 
