@@ -1,6 +1,6 @@
 ---
 title:  "Apache Guacamole Local and/or AWS Install"
-date:   2019-04-14 
+date:   2019-05-29
 categories: Detection
 ---
 
