@@ -248,8 +248,6 @@ Add following between 'web-app' & '/web-app' tags:
 
 
  Save and Close
-
-  ```sudo chmod 600 /etc/guacamole/user-mapping.xml```
   
   ```sudo service tomcat7 start```
   
