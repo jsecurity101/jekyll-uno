@@ -248,7 +248,11 @@ Add following between 'web-app' & '/web-app' tags:
 
 
  Save and Close
-  
+ 
+ ```chmod 444  /etc/guacamole/user-mapping.xml```
+ 
+This will set the permissions to "read" for the user-mapping.xml file. This is the minimum permissions Guacamole needs to allow login to the home page, along with allowing client connections (RDP/SSH). If you want to change this file, must run as superuser i.e. ```sudo```. 
+ 
   ```sudo service tomcat7 start```
   
   HTTP will now forward to HTTPS and will look similar to this:
