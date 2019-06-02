@@ -180,7 +180,7 @@ You should then see the connections page:
 ![security-groups](/images/AWS/connections.PNG)
 
 
-Securing:
+Basic Security/HTTPS:
 ---
 These are some basic things you can do to lock down the Tomcat7 server. There are ALOT more things to do, these are some basic things I wanted to implement. 
 
