@@ -1,12 +1,12 @@
 ---
-title:  "Kerberos Enumeration Detection"
+title:  "Password Spray Detection"
 date:   2018-12-20 
 categories: Detection
 tags: 
 ---
 Background:
 ---
-Before we begin I want to explain what attack was done and how I performed it. Kerberos Enumeration in simple terms is a way to enumerate or collect user's on a certain domain or workstation. I used Kali Linux and Metasploit to perform this attack. This attack is different then kerberoasting, this attack is simply using a wordlist to see if those accounts can authenticate on the system. I will not be showing how to perform this attack, as I don't think that is ethical, but I will be showing how I Detected this attack while I perfromed it.
+Before we begin I want to explain what attack was done and how I performed it. Performing a Password Spray is a way that an advesary can attempt to gain access to a large number of accounts, while checking if those accounts have commonly used password associated with them. I used Kali Linux and Metasploit to perform this attack. This attack is different then kerberoasting, this attack is simply using a wordlist to see if those accounts can authenticate on the system. I will not be showing how to perform this attack, as I don't think that is ethical, but I will be showing how I Detected this attack while I perfromed it.
 
 Lab:
 --
