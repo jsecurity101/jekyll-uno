@@ -10,7 +10,7 @@ Before we get started though I want to explain these two attacks. Although you c
 
 **Kerberoasting:**
 To understand Kerberoasting, there is an item we need to define that plays a huge part during this attack technique.
-Service Principal Names (SPN) is used to uniquely identify a Windows Service. Kerberos authentication requires that with each service logon account there must be a SPN associated. This allows a client to request a service authentication without having the actual account name through Kerberos authentication. You can read more about this at [MITRE ATT&CK](https://attack.mitre.org/techniques/T1208/). 
+Service Principal Names (SPN) is used to uniquely identify a Windows Service. Kerberos authentication requires that with each service logon account there must be a SPN associated. This allows a client to request a service ticket without having the actual account name through Kerberos authentication. You can read more about this at [MITRE ATT&CK](https://attack.mitre.org/techniques/T1208/). 
 
 *The SPN is not automatically created when you create the user in Active Dirtectory, you HAVE to go and create the SPN. You can see below how to do this:* 
 
