@@ -17,7 +17,7 @@ Service Principal Names (SPN) is used to uniquely identify a Windows Service. Ke
 ![set-spn](/images/Kerberoasting-vs-ASRep/set-spn.png)
 ![set-spn2](/images/Kerberoasting-vs-ASRep/set-spn2.png)
 
-When the Kerberoasting attack technique is executed, an adversary can use Domain credentials captured on any user to request Kerberos TGS tickets for accounts that are associated with the SPN records in Active Directory (AD). The TGS tickets are signed with the targeted user or services NTLM hash. This can then be cracked offline to retrieve the clear text password. By default, the tools to automate this process will retrieve the TGS ticket in the encrypted RC4 algorithm. This is where we can start to build our baseline in detecting this attack. 
+When the Kerberoast attack is executed, an adversary can use Domain credentials captured on any user to request Kerberos TGS tickets for accounts that are associated with the SPN records in Active Directory (AD). The TGS tickets are signed with the targeted user or services NTLM hash. This can then be cracked offline to retrieve the clear text password. By default, the tools to automate this process will retrieve the TGS ticket in the encrypted RC4 algorithm. This is where we can start to build our baseline in detecting this attack. 
 The adversary can then crack that hash with hashcat 13100 and a wordlist to find the password for that/those accounts. 
 
 **AS-REP Roasting:**
