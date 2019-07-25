@@ -90,6 +90,17 @@ With this Kerberoast attack you will see both AS-REQ/AS-REP before TGS-REQ/TGS-R
 
 Through these two packets you can see what user was used to authenticate. Now I would like to point out, that I may have only showed one user, you will see more then one user TGS-REQ/TGS-REP under the sname tab. This is gathering other service namees being requested, this is now giving the attacker the tickets for other users, which the attacker can crack the hash for their passwords as well.  
 
+## Queries
+As shown an adversary can use the captured users domain credentials to request Kerberos TGS tickets for accounts that are associated with an SPN. This ticket can be requested in a specific format (RC4), so when taking it offline it is easier to crack. I have noticed however when specifying that the account requesting the service ticket isn't a `machine($)` account, the `krbtgt` account, and the `failure code` is `0x0` this either gets us to the account that the advesary was using or limits down the results to where you can pick out the false positives to find the advesary easier. 
+
+| Analytic Platform | Analytic Type  | Analytic Logic |
+|--------|---------|---------|
+| Kibana | Rule | `event_id:4769 AND NOT (service_ticket_name = *$ AND service_ticket_name = krbtgt) AND failure_code = 0x0` |
+| Splunk | Rule | `index = wineventlog EventCode = 4769  Account_Name != "*$" AND (Service_Name != "*$" or Service_Name != "krbtgt") AND Failure_Code = 0x0`
+
+## Potential False Positives
+
+* Anytime a user wants access to a service a service ticket is requested. Meaning, service tickets are requested very often in enviroments. This makes this attack hard to hunt for. 
 
 AS-REP Roasting:
 --
