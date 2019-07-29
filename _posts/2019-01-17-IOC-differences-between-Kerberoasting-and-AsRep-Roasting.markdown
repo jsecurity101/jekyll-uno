@@ -95,8 +95,8 @@ As shown an adversary can use the captured users domain credentials to request K
 
 | Analytic Platform | Analytic Type  | Analytic Logic |
 |--------|---------|---------|
-| Kibana | Rule | `event_id:4769 AND NOT (service_ticket_name = *$ OR service_ticket_name = krbtgt) AND failure_code = 0x0` |
-| Splunk | Rule | `index = wineventlog EventCode = 4769  Account_Name != "*$" AND (Service_Name != "*$" or Service_Name != "krbtgt") AND Failure_Code = 0x0`
+| Kibana | Rule | `event_id:4769 AND ticket_encryption_type_value: "RC4-HMAC" AND NOT (user_name: *$ OR service_ticket_name: krbtgt)` |
+| Splunk | Rule | `index = wineventlog EventCode = 4769  Account_Name != "*$" AND Service_Name != "krbtgt" AND Failure_Code = 0x0 AND User_name!=*$ AND ticket_encryption_type_value= "RC4-HMAC"`
 
 ### Potential False Positives
 
