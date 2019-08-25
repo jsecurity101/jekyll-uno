@@ -97,8 +97,9 @@ As shown an adversary can use the captured users domain credentials to request K
 |--------|---------|---------|
 | Kibana | Rule | `event_id:4769 AND ticket_encryption_type_value: "RC4-HMAC" AND NOT (user_name: *$ AND service_ticket_name: krbtgt AND service_ticket_name:*$)` |
 | Splunk | Rule | `index=wineventlog EventCode=4769 Service_Name!="krbtgt" Service_Name!="*$" Failure_Code ="0x0"  Ticket_Encryption_Type="0x17" Account_Name!="*$*"` |
+| Jupyter Notebook | Rule | `SELECT event_id, TargetUserName, TicketEncryptionType, ServiceName, Status FROM mordor_file WHERE channel = "Security" AND event_id = 4769 AND Status = "0x0" AND TicketEncryptionType = "0x17" AND NOT (ServiceName LIKE "%$" OR ServiceName = "krbtgt")`
 
-**Note**: For `Account_Name!=*$*` enter your personalized domain so that the query is faster. Example: `Account_Name!="*$@domain.com`
+**Note**: To make your query run faster in Splunk change`Account_Name!=*$*` enter your personalized domain. Example: `Account_Name!=*$@domain.com`
 
 ### Potential False Positives
 
