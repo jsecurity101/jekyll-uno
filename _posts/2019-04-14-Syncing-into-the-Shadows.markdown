@@ -149,10 +149,18 @@ Onto the Hunt (the best part):
 
 ### DCSync Analytics: 
 
+Below you can find the data relationships I have discussed above in a table format for the DCShadow technqiue. 
+
  | Event ID | Event Name | Log Provider | Audit Category | Audit Sub-Category | ATT&CK Data Source |
 |---------|---------|----------|----------|---------|-----|
 | [4662](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4749) | An operation was performed on an object | Microsoft-Windows-Security-Auditing | Directory Service Access| Audit Directory Service Access | Windows Event Logs |
 
+| Attribute Name | Attribute Value | Description |
+|---------|---------|---------|
+| Access Mask | `0x100` | Control Access - "Access allowed only after extended rights checks supported by the object are performed.
+The right to perform an operation controlled by an extended access right." - Microsoft Docs
+| Object Type | `19195a5b-6da0-11d0-afd3-00c04fd930c9` | Domain-DNS Class - "Windows NT domain with DNS-based (DC=) naming." - [Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/adschema/c-domaindns)
+| Properties | `1131f6ad-9c07-11d1-f79f-00c04fc2dcd2` | DS-Replication-Get-Changes-All - "Control access right that allows the replication of secret domain data." [Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/adschema/r-ds-replication-get-changes-all)
 
 | Protocol | Event Name | Description | Event Relationship |
 |---------|---------|----------|
@@ -250,6 +258,12 @@ Below you can find the data relationships I have discussed above in a table form
 | [4662](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4749) | An operation was performed on an object | Microsoft-Windows-Security-Auditing | Directory Service Access| Audit Directory Service Access | Windows Event Logs |
 | [4749](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4662) | A computer account was changed| Microsoft-Windows-Security-Auditing | Account Management | Audit Computer Account Management | Windows Event Logs |
 
+
+| Attribute Name | Attribute Value | Description |
+|---------|---------|---------|
+| Access Mask | `0x1` | Create Child - The right to create child objects of the object.
+| Object Type | `f780acc0_56f0_11d1_a9c6_0000f80367c1` | Servers-Container class - "Each time a server is defined in or removed from a site." - [Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/adschema/c-serverscontainer)
+| Properties | `bf967a92_0de6_11d0_a285_00aa003049e2` | Server class - "When a site is created" - [Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/adschema/c-server)
 
 | Protocol | Event Name | Description | Event Relationship |
 |---------|---------|----------|
