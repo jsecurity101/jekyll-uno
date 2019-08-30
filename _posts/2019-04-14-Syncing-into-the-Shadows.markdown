@@ -275,7 +275,7 @@ Below you can find the data relationships I have discussed above in a table form
 
 
 
-| Analytic Platform | Analytic Type  | Analytic Logic | Additional Information |
+| Analytic Platform | Analytic Type  | Analytic Logic |
 |--------|---------|---------|---------|
 | Kibana | Rule | `(event_id:4662 AND (object_type:"f780acc0-56f0-11d1-a9c6-0000f80367c1" AND object_properties:"bf967a92-0de6-11d0-a285-00aa003049e2" AND object_access_mask_requested: "0x1") AND NOT user_name.keyword: *$) OR (event_id:4742 AND ServicePrincipalNames:GC*)` 
 | Jupyter Notebook | Rule | ` SELECT  computer_name, SubjectUserName,SubjectLogonId,AccessMask FROM mordor_file WHERE channel = "Security" AND event_id = 4662 AND Properties LIKE "%bf967a92_0de6_11d0_a285_00aa003049e2%" AND ObjectType LIKE "%f780acc0_56f0_11d1_a9c6_0000f80367c1%" AND AccessMask = "0x1" AND  NOT SubjectUserName LIKE "%$"`
