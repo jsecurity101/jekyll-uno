@@ -147,6 +147,23 @@ Onto the Hunt (the best part):
 
 <p>You can see the directory service operations being done over the network here as well.</p>
 
+### DCSync Analytics: 
+
+ | Event ID | Event Name | Log Provider | Audit Category | Audit Sub-Category | ATT&CK Data Source |
+|---------|---------|----------|----------|---------|-----|
+| [4662](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4749) | An operation was performed on an object | Microsoft-Windows-Security-Auditing | Directory Service Access| Audit Directory Service Access | Windows Event Logs |
+
+
+| Protocol | Event Name | Description | Event Relationship |
+|---------|---------|----------|
+| DRSUAPI | DsGetNCChanges | Performs a sync replication to get AD object updates from the domain controller. | WSE ID 4662
+
+| Analytic Platform | Analytic Type  | Analytic Logic |
+|--------|---------|---------|
+| Kibana | Rule | `event_id : 4662 AND NOT user_name.keyword: *$ AND object_properties : ("1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" AND "19195a5b-6da0-11d0-afd3-00c04fd930c9") AND object_access_mask_requested:"0x100”`|
+| Jupyter Notebook | Rule | `SELECT event_id,computer_name, SubjectUserName, IpAddress FROM mordor_file WHERE channel = "Security" AND event_id = 4662 AND (Properties LIKE "%1131f6ad-9c07-11d1-f79f-00c04fc2dcd2%" AND Properties LIKE "%19195a5b-6da0-11d0-afd3-00c04fd930c9%") AND AccessMask = "0x100" AND NOT SubjectUserName LIKE "%$"`|
+| Jupyter Notebook | Rule | `SELECT  o.computer_name, o.SubjectUserName,o.SubjectLogonId, a.TargetUserName, o.AccessMask, a.IpAddress FROM mordor_file o INNER JOIN(SELECT computer_name,TargetUserName,TargetLogonId,IpAddress FROM mordor_file WHERE channel = "Security" AND event_id = 4624 AND LogonType = 3 AND IpAddress is not null) a ON a.TargetLogonId = o.SubjectLogonId WHERE channel = "Security" AND event_id = 4662 AND (Properties LIKE "%1131f6ad-9c07-11d1-f79f-00c04fc2dcd2%" AND Properties LIKE "%19195a5b-6da0-11d0-afd3-00c04fd930c9%") AND AccessMask = "0x100" AND NOT SubjectUserName LIKE "%$"` |
+
 <p><strong><i>DCShadow:</i></strong></p>
 
 <p>So far, we have successfully confirmed that there was a DCSync technique handled above. What did the adversary do with the information it requested from the Domain Controller? How can we successfully hunt the adversary now? We follow the same process. So far we have found tracks from the adversary, not the actual adversary yet.</p>
@@ -223,6 +240,30 @@ Notice while looking into the details of the 4742 log - underneath ‘Service Pr
 ![DCSync-DCShadow](/images/DCSync-vs-DCShadow/TGS.png)
 
 <p>You notice this before any of the DRS or LDAP logs inside of the packet capture.</p>
+
+## DCShadow Analytics: 
+
+Below you can find the data relationships I have discussed above in a table format for the DCShadow technqiue. 
+
+| Event ID | Event Name | Log Provider | Audit Category | Audit Sub-Category | ATT&CK Data Source |
+|---------|---------|----------|----------|---------|-----|
+| [4662](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4749) | An operation was performed on an object | Microsoft-Windows-Security-Auditing | Directory Service Access| Audit Directory Service Access | Windows Event Logs |
+| [4749](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4662) | A computer account was changed| Microsoft-Windows-Security-Auditing | Account Management | Audit Computer Account Management | Windows Event Logs |
+
+
+| Protocol | Event Name | Description | Event Relationship |
+|---------|---------|----------|
+| DRSUAPI | DRS_REPLICA_ADD | Adding computer account attributes - Creating the nTDSDSA object class | WSE ID 4749 |
+| DRSUAPI | DRS_REPLICA_DEL | Adding computer account attributes - Removing the nTDSDSA object class | WSE ID 4749 |
+| DRSUAPI | DsAddEntry | Creating objects or modifying objects attributes | WSE ID 4662 |
+
+| Analytic Platform | Analytic Type  | Analytic Logic | Additional Information |
+|--------|---------|---------|---------|
+| Kibana | Rule | `(event_id:4662 AND (object_type:"f780acc0-56f0-11d1-a9c6-0000f80367c1" AND object_properties:"bf967a92-0de6-11d0-a285-00aa003049e2" AND object_access_mask_requested: "0x1") AND NOT user_name.keyword: *$) OR (event_id:4742 AND ServicePrincipalNames:GC*)` | None
+| Jupyter Notebook | Rule | ` SELECT  computer_name, SubjectUserName,SubjectLogonId,AccessMask FROM mordor_file WHERE channel = "Security" AND event_id = 4662 AND Properties LIKE "%bf967a92_0de6_11d0_a285_00aa003049e2%" AND ObjectType LIKE "%f780acc0_56f0_11d1_a9c6_0000f80367c1%" AND AccessMask = "0x1" AND  NOT SubjectUserName LIKE "%$"`| Pulling only 4662 events that match the properties, object type, and access mask of dcshadow behavior.
+| Jupyter Notebook | Rule | `SELECT  o.computer_name, o.SubjectUserName,o.SubjectLogonId, a.TargetUserName, o.AccessMask, a.IpAddress FROM mordor_file o INNER JOIN( SELECT computer_name,TargetUserName,TargetLogonId,IpAddress FROM mordor_file WHERE channel = "Security" AND event_id = 4624 AND LogonType = 3 AND IpAddress is not null ) a ON a.TargetLogonId = o.SubjectLogonId WHERE channel = "Security" AND o.event_id = 4662 AND o.Properties LIKE "%bf967a92_0de6_11d0_a285_00aa003049e2%" AND o.ObjectType LIKE "%f780acc0_56f0_11d1_a9c6_0000f80367c1%" AND o.AccessMask = "0x1" AND  NOT SubjectUserName LIKE "%$"`| Pulling 4662 and 4624 events, where there is a relationship on 4624's `TargetLogonId` and 4662's `SubjectLogonId` |
+| Jupyter Notebook | Rule | `SELECT  o.`@timestamp`, o.computer_name, o.SubjectUserName,o.SubjectLogonId, a.TargetUserName, o.AccessMask FROM mordor_file o INNER JOIN( SELECT SubjectLogonId, event_id, ServicePrincipalNames, TargetUserName FROM mordor_file WHERE channel = "Security" AND event_id = 4742 AND ServicePrincipalNames LIKE "%GC%" ) a ON a.SubjectLogonId = o.SubjectLogonId WHERE channel = "Security" AND o.event_id = 4662 AND o.Properties LIKE "%bf967a92_0de6_11d0_a285_00aa003049e2%" AND o.ObjectType LIKE "%f780acc0_56f0_11d1_a9c6_0000f80367c1%" AND o.AccessMask = "0x1" AND  NOT SubjectUserName LIKE "%$"`| Pulling 4662 and 4624 events, where there is a relationship on 4742's `SubjectLogonId` and 4662's `SubjectLogonId` |
+
 
 Final Thoughts:
 ---
