@@ -149,7 +149,7 @@ Onto the Hunt (the best part):
 
 ### DCSync Analytics: 
 
-Below you can find the data relationships I have discussed above in a table format for the DCShadow technqiue. 
+Below you can find the data relationships I have discussed above in a table format for the DCSync technqiue. 
 
  | Event ID | Event Name | Log Provider | Audit Category | Audit Sub-Category | ATT&CK Data Source |
 |---------|---------|----------|----------|---------|-----|
