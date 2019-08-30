@@ -151,19 +151,18 @@ Onto the Hunt (the best part):
 
 Below you can find the data relationships I have discussed above in a table format for the DCSync technqiue. 
 
- | Event ID | Event Name | Log Provider | Audit Category | Audit Sub-Category | ATT&CK Data Source |
+| Event ID | Event Name | Log Provider | Audit Category | Audit Sub-Category | ATT&CK Data Source |
 |---------|---------|----------|----------|---------|-----|
 | [4662](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4749) | An operation was performed on an object | Microsoft-Windows-Security-Auditing | Directory Service Access| Audit Directory Service Access | Windows Event Logs |
 
 | Attribute Name | Attribute Value | Description |
 |---------|---------|---------|
-| Access Mask | `0x100` | Control Access - "Access allowed only after extended rights checks supported by the object are performed.
-The right to perform an operation controlled by an extended access right." - Microsoft Docs
-| Object Type | `19195a5b-6da0-11d0-afd3-00c04fd930c9` | Domain-DNS Class - "Windows NT domain with DNS-based (DC=) naming." - [Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/adschema/c-domaindns)
-| Properties | `1131f6ad-9c07-11d1-f79f-00c04fc2dcd2` | DS-Replication-Get-Changes-All - "Control access right that allows the replication of secret domain data." [Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/adschema/r-ds-replication-get-changes-all)
+| Access Mask | `0x100` | Control Access - "Access allowed only after extended rights checks supported by the object are performed. The right to perform an operation controlled by an extended access right." - [Microsoft Docs](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/990fb975-ab31-4bc1-8b75-5da132cd4584) |
+| Properties | `19195a5b-6da0-11d0-afd3-00c04fd930c9` | Domain-DNS Class - "Windows NT domain with DNS-based (DC=) naming." - [Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/adschema/c-domaindns) |
+| Properties | `1131f6ad-9c07-11d1-f79f-00c04fc2dcd2` | DS-Replication-Get-Changes-All - "Control access right that allows the replication of secret domain data." [Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/adschema/r-ds-replication-get-changes-all) |
 
 | Protocol | Event Name | Description | Event Relationship |
-|---------|---------|----------|
+|---------|---------|----------|----------|
 | DRSUAPI | DsGetNCChanges | Performs a sync replication to get AD object updates from the domain controller. | WSE ID 4662
 
 | Analytic Platform | Analytic Type  | Analytic Logic |
@@ -266,15 +265,15 @@ Below you can find the data relationships I have discussed above in a table form
 | Properties | `bf967a92_0de6_11d0_a285_00aa003049e2` | Server class - "When a site is created" - [Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/adschema/c-server)
 
 | Protocol | Event Name | Description | Event Relationship |
-|---------|---------|----------|
+|---------|---------|----------|----------|
 | DRSUAPI | DRS_REPLICA_ADD | Adding computer account attributes - Creating the nTDSDSA object class | WSE ID 4749 |
 | DRSUAPI | DRS_REPLICA_DEL | Adding computer account attributes - Removing the nTDSDSA object class | WSE ID 4749 |
 | DRSUAPI | DsAddEntry | Creating objects or modifying objects attributes | WSE ID 4662 |
 
 | Analytic Platform | Analytic Type  | Analytic Logic | Additional Information |
 |--------|---------|---------|---------|
-| Kibana | Rule | `(event_id:4662 AND (object_type:"f780acc0-56f0-11d1-a9c6-0000f80367c1" AND object_properties:"bf967a92-0de6-11d0-a285-00aa003049e2" AND object_access_mask_requested: "0x1") AND NOT user_name.keyword: *$) OR (event_id:4742 AND ServicePrincipalNames:GC*)` | None
-| Jupyter Notebook | Rule | ` SELECT  computer_name, SubjectUserName,SubjectLogonId,AccessMask FROM mordor_file WHERE channel = "Security" AND event_id = 4662 AND Properties LIKE "%bf967a92_0de6_11d0_a285_00aa003049e2%" AND ObjectType LIKE "%f780acc0_56f0_11d1_a9c6_0000f80367c1%" AND AccessMask = "0x1" AND  NOT SubjectUserName LIKE "%$"`| Pulling only 4662 events that match the properties, object type, and access mask of dcshadow behavior.
+| Kibana | Rule | `(event_id:4662 AND (object_type:"f780acc0-56f0-11d1-a9c6-0000f80367c1" AND object_properties:"bf967a92-0de6-11d0-a285-00aa003049e2" AND object_access_mask_requested: "0x1") AND NOT user_name.keyword: *$) OR (event_id:4742 AND ServicePrincipalNames:GC*)` | Pulling 4662 and 4742 events, look for a relationship on 4742's `SubjectLogonId` and 4662's `SubjectLogonId` |
+| Jupyter Notebook | Rule | ` SELECT  computer_name, SubjectUserName,SubjectLogonId,AccessMask FROM mordor_file WHERE channel = "Security" AND event_id = 4662 AND Properties LIKE "%bf967a92_0de6_11d0_a285_00aa003049e2%" AND ObjectType LIKE "%f780acc0_56f0_11d1_a9c6_0000f80367c1%" AND AccessMask = "0x1" AND  NOT SubjectUserName LIKE "%$"`| Pulling only 4662 events that match the properties, object type, and access mask of dcshadow behavior. |
 | Jupyter Notebook | Rule | `SELECT  o.computer_name, o.SubjectUserName,o.SubjectLogonId, a.TargetUserName, o.AccessMask, a.IpAddress FROM mordor_file o INNER JOIN( SELECT computer_name,TargetUserName,TargetLogonId,IpAddress FROM mordor_file WHERE channel = "Security" AND event_id = 4624 AND LogonType = 3 AND IpAddress is not null ) a ON a.TargetLogonId = o.SubjectLogonId WHERE channel = "Security" AND o.event_id = 4662 AND o.Properties LIKE "%bf967a92_0de6_11d0_a285_00aa003049e2%" AND o.ObjectType LIKE "%f780acc0_56f0_11d1_a9c6_0000f80367c1%" AND o.AccessMask = "0x1" AND  NOT SubjectUserName LIKE "%$"`| Pulling 4662 and 4624 events, where there is a relationship on 4624's `TargetLogonId` and 4662's `SubjectLogonId` |
 | Jupyter Notebook | Rule | `SELECT  o.`@timestamp`, o.computer_name, o.SubjectUserName,o.SubjectLogonId, a.TargetUserName, o.AccessMask FROM mordor_file o INNER JOIN( SELECT SubjectLogonId, event_id, ServicePrincipalNames, TargetUserName FROM mordor_file WHERE channel = "Security" AND event_id = 4742 AND ServicePrincipalNames LIKE "%GC%" ) a ON a.SubjectLogonId = o.SubjectLogonId WHERE channel = "Security" AND o.event_id = 4662 AND o.Properties LIKE "%bf967a92_0de6_11d0_a285_00aa003049e2%" AND o.ObjectType LIKE "%f780acc0_56f0_11d1_a9c6_0000f80367c1%" AND o.AccessMask = "0x1" AND  NOT SubjectUserName LIKE "%$"`| Pulling 4662 and 4624 events, where there is a relationship on 4742's `SubjectLogonId` and 4662's `SubjectLogonId` |
 
