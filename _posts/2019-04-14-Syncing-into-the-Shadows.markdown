@@ -264,11 +264,15 @@ Below you can find the data relationships I have discussed above in a table form
 | Object Type | `f780acc0_56f0_11d1_a9c6_0000f80367c1` | Servers-Container class - "Each time a server is defined in or removed from a site." - [Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/adschema/c-serverscontainer)
 | Properties | `bf967a92_0de6_11d0_a285_00aa003049e2` | Server class - "When a site is created" - [Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/adschema/c-server)
 
+
+
 | Protocol | Event Name | Description | Event Relationship |
 |---------|---------|----------|----------|
 | DRSUAPI | DRS_REPLICA_ADD | Adding computer account attributes - Creating the nTDSDSA object class | WSE ID 4749 |
 | DRSUAPI | DRS_REPLICA_DEL | Adding computer account attributes - Removing the nTDSDSA object class | WSE ID 4749 |
 | DRSUAPI | DsAddEntry | Creating objects or modifying objects attributes | WSE ID 4662 |
+
+
 
 
 | Analytic Platform | Analytic Type  | Analytic Logic | Additional Information |
