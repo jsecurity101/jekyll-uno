@@ -149,7 +149,7 @@ Onto the Hunt (the best part):
 
 ### DCSync Analytics: 
 
-Below you can find the data relationships I have discussed above in a table format for the DCSync technqiue. 
+Below you can find the data relationships I have discussed above in a table format for the DCSync technique. 
 
 | Event ID | Event Name | Log Provider | Audit Category | Audit Sub-Category | ATT&CK Data Source |
 |---------|---------|----------|----------|---------|-----|
@@ -250,7 +250,7 @@ Notice while looking into the details of the 4742 log - underneath ‘Service Pr
 
 ## DCShadow Analytics: 
 
-Below you can find the data relationships I have discussed above in a table format for the DCShadow technqiue. 
+Below you can find the data relationships I have discussed above in a table format for the DCShadow technique. 
 
 | Event ID | Event Name | Log Provider | Audit Category | Audit Sub-Category | ATT&CK Data Source |
 |---------|---------|----------|----------|---------|-----|
@@ -269,6 +269,7 @@ Below you can find the data relationships I have discussed above in a table form
 | DRSUAPI | DRS_REPLICA_ADD | Adding computer account attributes - Creating the nTDSDSA object class | WSE ID 4749 |
 | DRSUAPI | DRS_REPLICA_DEL | Adding computer account attributes - Removing the nTDSDSA object class | WSE ID 4749 |
 | DRSUAPI | DsAddEntry | Creating objects or modifying objects attributes | WSE ID 4662 |
+
 
 | Analytic Platform | Analytic Type  | Analytic Logic | Additional Information |
 |--------|---------|---------|---------|
