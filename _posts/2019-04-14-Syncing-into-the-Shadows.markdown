@@ -255,7 +255,7 @@ Below you can find the data relationships I have discussed above in a table form
 | Event ID | Event Name | Log Provider | Audit Category | Audit Sub-Category | ATT&CK Data Source |
 |---------|---------|----------|----------|---------|-----|
 | [4662](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4749) | An operation was performed on an object | Microsoft-Windows-Security-Auditing | Directory Service Access| Audit Directory Service Access | Windows Event Logs |
-| [4749](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4662) | A computer account was changed| Microsoft-Windows-Security-Auditing | Account Management | Audit Computer Account Management | Windows Event Logs |
+| [4742](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4662) | A computer account was changed| Microsoft-Windows-Security-Auditing | Account Management | Audit Computer Account Management | Windows Event Logs |
 
 
 | Attribute Name | Attribute Value | Description |
@@ -268,8 +268,8 @@ Below you can find the data relationships I have discussed above in a table form
 
 | Protocol | Event Name | Description | Event Relationship |
 |---------|---------|----------|----------|
-| DRSUAPI | DRS_REPLICA_ADD | Adding computer account attributes - Creating the nTDSDSA object class | WSE ID 4749 |
-| DRSUAPI | DRS_REPLICA_DEL | Adding computer account attributes - Removing the nTDSDSA object class | WSE ID 4749 |
+| DRSUAPI | DRS_REPLICA_ADD | Adding computer account attributes - Creating the nTDSDSA object class | WSE ID 4742 |
+| DRSUAPI | DRS_REPLICA_DEL | Adding computer account attributes - Removing the nTDSDSA object class | WSE ID 4742 |
 | DRSUAPI | DsAddEntry | Creating objects or modifying objects attributes | WSE ID 4662 |
 
 
