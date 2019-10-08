@@ -1,7 +1,7 @@
 # Site settings
 title: Jonathan Johnson
-description: 'Maintained blog @ medium.com/@jsecurity101'
-url: 'https://medium.com/@jsecurity101'
+description: 'Blog now maintained at https://medium.com/@jsecurity101''
+url: 'https://jsecurity101.com'
 baseurl: ''
 # google_analytics: 'UA-XXXXXX-X'
 # disqus_shortname: 'your-disqus-name'
